@@ -1,13 +1,14 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import dao.AgentDao;
-import dao.AgentDaoImpl;
 import vo.AgentVO;
 import vo.BangVO;
+import dao.AgentDao;
+import dao.AgentDaoImpl;
 
 public class AgentServiceImpl implements AgentService {
 
@@ -94,24 +95,35 @@ public class AgentServiceImpl implements AgentService {
 	}
 
 	@Override
-	public void agentcheck() {
-		// TODO Auto-generated method stub
+	public String agentcheck() {
+		
+		ArrayList<AgentVO> agentList = agentDao.selectAgentList();
+		
 		System.out.print("아이디 : ");
 		String id = s.nextLine();
 		System.out.print("비번 : ");
 		String password = s.nextLine();
 
-		AgentVO agent = new AgentVO();
-		agent.setAgentId(id);
-		agent.setPassword(password);
-
-		AgentVO agentCheck = agentDao.selectAgent("ID", agent.getAgentId());
-
-		if (agentCheck == null) {
+		if(agentList.isEmpty()){
 			System.out.println("등록된 정보가 없습니다. 회원가입을 하세요");
-		} else {
-			System.out.println("환영합니다 중개인님" + "\t" + "로그아웃");
+			return null;
+		}else if(id.equals("lovelysh24")){
+			System.out.println("관리자님께서 로그인하셨습니다");
+			return "admin";
+		}else {
+			for(int i = 0; i < agentList.size(); i++){
+				if(agentList.get(i).getAgentId().equals(id)){
+					if(agentList.get(i).getPassword().equals(password)){
+						System.out.println("환영합니다 중개인 : " + agentList.get(i).getAgentId() + "  " + "로그아웃");
+					}else{
+						System.out.println("패스워드 틀리셨습니다.");
+						return null;
+					}					
+				}
+			}
+			return "";
 		}
+		
 	}
 	
 	@Override
@@ -144,8 +156,7 @@ public class AgentServiceImpl implements AgentService {
 		bang.setOption1(option1);
 		bang.setOption1(option2);
 		bang.setCategory(category);
-		bang.setWorkDate(workDate);
-		bang.setPrice(price);
+//		bang.setPrice(price);
 		
 //		BangVO userCheck = bangDao.selectUser("POST", bang.getAddress1().trim() + bang.getAddress2().trim());
 		

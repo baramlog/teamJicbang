@@ -6,10 +6,13 @@ import java.util.ArrayList;
 
 public interface NoticeService {
     void viewList();
-    void viewDetail(NoticeVO notice);
-    void writeNotice();
-    void adminMenu();
     void printList(ArrayList<NoticeVO> noticeList);
+    void printDetail(NoticeVO notice);
+    void nextAction();
+    void adminMenu();
+    void writeNotice();
     void removeNotice();
+    void printLine();
+    void printError();
 
 }

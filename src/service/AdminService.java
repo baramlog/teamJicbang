@@ -8,6 +8,6 @@ public interface AdminService {
 	void NoticeDeleteList(); //공지사항 삭제
 //	void userlist(); //회원 전체 목록 출력
 //	void agentList(); //중개인 전체 목록 출력
-	void answer(); //사용자인지 중개인이지 물어보기
-	
+	void login(); //사용자인지 중개인이지 물어보기
+	void join(); //회원가입 사용자? 중개인?
 }

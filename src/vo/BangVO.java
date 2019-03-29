@@ -1,27 +1,42 @@
 package vo;
 
+import java.util.Date;
+
 public class BangVO {
 	
 	private int bangNum; //방 기본키
 	private float area; //면적
-	private String address1; //주소
-	private String address2; //상세주소(아파트이름, 몇 동 몇 호)
+	private String address1; //구
+	private String address2; //상세주소
 	private double price; //가격
+	
 	private String option1; //방, 화장실 개수
 	private String option2; //역이 근처에 있는지
 	private String state; //판매상태
 	private String category; //전월세, 매매
-	private String agentId; //중개인 아이디 로 나머진 불러오기
-	private String workDate; //준공일자
+	private String agentName; //중개인 이름
+	private String agentId; //중개인 아이디로 나머지 불러오기
 	private String startDate; //등록일자
 	private String endDate; //등록이 끝나는 날짜
 	
-	public String getWorkDate() {
-		return workDate;
+	public int getBangNum() {
+		return bangNum;
 	}
-	public void setWorkDate(String workDate) {
-		this.workDate = workDate;
-	}	
+	public void setBangNum(int bangNum) {
+		this.bangNum = bangNum;
+	}
+	public String getAgentName() {
+		return agentName;
+	}
+	public void setAgentName(String agentName) {
+		this.agentName = agentName;
+	}
+	public String getAgentId() {
+		return agentId;
+	}
+	public void setAgentId(String agentId) {
+		this.agentId = agentId;
+	}
 	public String getStartDate() {
 		return startDate;
 	}
@@ -94,6 +109,10 @@ public class BangVO {
 	public void setPrice(double price) {
 		this.price = price;
 	}
+	
+//	public void setPrice(double d) {
+//		this.price = d;
+//	}
 	
 	
 }

@@ -24,6 +24,7 @@ public class NoticeServiceImpl implements NoticeService {
             System.out.println("\n총 " + noticeList.size() + "건의 글이 있습니다.");
         else {
             System.out.println("\n등록된 글이 없습니다.");
+            return;
         }
         printLine();
         int idx = 1;
@@ -40,61 +41,53 @@ public class NoticeServiceImpl implements NoticeService {
 
     @Override
     public void viewList() {
-
-        boolean isContinue = true;
-
-        while (isContinue) {
-
-            printList(noticeDao.getList());
-
-            System.out.print("\n게시글 중 하나를 선택하여 보시겠습니까?(y/n) > ");
-            String cmd = s.nextLine();
-            switch (cmd) {
-                case "y":
-                    System.out.print("\n자세히 볼 글의 번호를 입력하세요. > ");
-                    String cmd2 = s.nextLine();
-                    if (!checkValue.checkNumber(cmd2, startNum, endNum)) {
-                        printError();
-                        break;
-                    }
-
-                    viewDetail(matchIndexList.get(Integer.parseInt(cmd2)));
-
-                    boolean isContinue2 = true;
-                    while (isContinue2) {
-                        System.out.println("\n다음 동작을 선택하세요.");
-                        System.out.println("1. 목록 다시보기  2. 홈");
-                        System.out.print("> ");
-
-                        String cmd3 = s.nextLine();
-                        switch (cmd3) {
-                            case "1":
-                                isContinue2 = false;
-                                break;
-                            case "2":
-                                //홈
-                                isContinue2 = false;
-                                isContinue = false;
-                                break;
-                            default:
-                                printError();
-                        }
-                    }
-
-                    break;
-                case "n":
-                    isContinue = false;
-                    break;
-                default:
-                    printError();
-
-            }
-        }
         System.out.println();
+        printList(noticeDao.getList());
+
+        System.out.print("\n게시글 중 하나를 선택하여 보시겠습니까?(y/n) > ");
+        String cmd = s.nextLine();
+        switch (cmd) {
+            case "y":
+                System.out.print("\n자세히 볼 글의 번호를 입력하세요. > ");
+                String cmd2 = s.nextLine();
+                if (!checkValue.checkNumber(cmd2, startNum, endNum)) {
+                    printError();
+                    viewList();
+                    break;
+                }
+                printDetail(matchIndexList.get(Integer.parseInt(cmd2)));
+                nextAction();
+                break;
+            case "n":
+                break;
+            default:
+                printError();
+                viewList();
+        }
     }
 
     @Override
-    public void viewDetail(NoticeVO notice) {
+    public void nextAction() {
+        System.out.println("\n다음 동작을 선택하세요.");
+        System.out.println("1. 목록 다시보기  2. 홈");
+        System.out.print("> ");
+
+        String cmd = s.nextLine();
+        switch (cmd) {
+            case "1":
+                viewList();
+                break;
+            case "2":
+                //홈
+                break;
+            default:
+                printError();
+                nextAction();
+        }
+    }
+
+    @Override
+    public void printDetail(NoticeVO notice) {
         printLine();
         System.out.println("제목: " + notice.getTitle());
         System.out.println("작성자: 관리자");
@@ -107,15 +100,19 @@ public class NoticeServiceImpl implements NoticeService {
     public void removeNotice() {
         System.out.print("\n삭제할 글의 번호를 입력하세요. (취소: 0)> ");
         String cmd = s.nextLine();
-        if(cmd.equals("0"))
-            return;
-        if (!checkValue.checkNumber(cmd, startNum, endNum)) {
-            printError();
+        switch (cmd) {
+            case "0":
+                break;
+            default:
+                if (!checkValue.checkNumber(cmd, startNum, endNum)) {
+                    printError();
+                    removeNotice();
+                    return;
+                }
+                NoticeVO selectedNotice = matchIndexList.get(Integer.parseInt(cmd));
+                noticeDao.removeNotice(selectedNotice);
+                System.out.println("*****삭제하였습니다.*****");
         }
-        NoticeVO selectedNotice = matchIndexList.get(Integer.parseInt(cmd));
-        noticeDao.removeNotice(selectedNotice);
-        System.out.println("삭제 완료");
-
     }
 
 
@@ -125,49 +122,48 @@ public class NoticeServiceImpl implements NoticeService {
         String title, context;
         System.out.print("제목을 입력하세요. > ");
         title = s.nextLine();
-        System.out.println("내용을 입력하세요. > ");
+        System.out.print("내용을 입력하세요. > ");
         context = s.nextLine();
 
         notice.setTitle(title);
         notice.setContents(context);
-
         //등록
         noticeDao.insertNotice(notice);
 
-        System.out.println("등록되었습니다.");
+        System.out.println("*****등록되었습니다.*****");
 
     }
 
     @Override
     public void adminMenu() {
-        boolean isContinue = true;
-        while (isContinue) {
-            System.out.println("\n다음 동작을 선택하세요.");
-            System.out.println("1. 공지사항 등록  2. 공지사항 삭제  3. 홈");
-            System.out.print("> ");
+        System.out.println("\n다음 동작을 선택하세요.");
+        System.out.println("1. 공지사항 등록  2. 공지사항 삭제  3. 홈");
+        System.out.print("> ");
 
-            String cmd = s.nextLine();
-            switch (cmd) {
-                case "1":
-                    writeNotice();
-                    break;
-                case "2":
+        String cmd = s.nextLine();
+        switch (cmd) {
+            case "1":
+                writeNotice();
+                adminMenu();
+                break;
+            case "2":
+                printList(noticeDao.getList());
+                if(noticeDao.getList().size() > 0)
                     removeNotice();
-                    break;
-                case "3":
-                    isContinue = false;
-                    //go home
-                default:
-                    printError();
-            }
+                adminMenu();
+                break;
+            case "3":
+                break;
+            default:
+                printError();
+                adminMenu();
         }
-
     }
-
+    @Override
     public void printLine() {
         System.out.println("-------------------------------------------------------------");
     }
-
+    @Override
     public void printError() {
         System.out.println("\n잘못 입력하셨습니다.");
     }

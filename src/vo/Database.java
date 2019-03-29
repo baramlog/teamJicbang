@@ -28,49 +28,50 @@ public class Database {
 		admin.setEmail("lovelysh24@gmail.com");
 		admin.setLevel(9);
 		tb_agent.add(admin);
-
+		
 		AgentVO agent = new AgentVO();
-		admin.setAgentId("abcd123");
-		admin.setPassword("1234");
-		admin.setName("해솔중개사");
-		admin.setPhone("010-2738-8924");
-		admin.setEmail("lovelysh24@gmail.com");
-		admin.setLevel(9);
+		agent.setAgentId("abcd123");
+		agent.setPassword("1234");
+		agent.setName("해솔중개사");
+		agent.setPhone("010-2738-8924");
+		agent.setEmail("lovelysh24@gmail.com");
+		agent.setLevel(9);
 		tb_agent.add(agent);
-
+		
 		agent = new AgentVO();
-		admin.setAgentId("abcd123");
-		admin.setPassword("1234");
-		admin.setName("재권중개사");
-		admin.setPhone("010-2738-8924");
-		admin.setEmail("lovelysh24@gmail.com");
-		admin.setLevel(9);
+		agent.setAgentId("abcd123");
+		agent.setPassword("1234");
+		agent.setName("재권중개사");
+		agent.setPhone("010-2738-8924");
+		agent.setEmail("lovelysh24@gmail.com");
+		agent.setLevel(9);
 		tb_agent.add(agent);
-
+		
 		agent = new AgentVO();
-		admin.setAgentId("abcd123");
-		admin.setPassword("1234");
-		admin.setName("서익중개사");
-		admin.setPhone("010-2738-8924");
-		admin.setEmail("lovelysh24@gmail.com");
-		admin.setLevel(9);
+		agent.setAgentId("abcd123");
+		agent.setPassword("1234");
+		agent.setName("서익중개사");
+		agent.setPhone("010-2738-8924");
+		agent.setEmail("lovelysh24@gmail.com");
+		agent.setLevel(9);
 		tb_agent.add(agent);
-
+		
 		agent = new AgentVO();
-		admin.setAgentId("lovelysh24");
-		admin.setPassword("1234");
-		admin.setName("성희중개사");
-		admin.setPhone("010-2738-8924");
-		admin.setEmail("lovelysh24@gmail.com");
-		admin.setLevel(9);
+		agent.setAgentId("lovelysh");
+		agent.setPassword("1234");
+		agent.setName("성희중개사");
+		agent.setPhone("010-2738-8924");
+		agent.setEmail("lovelysh24@gmail.com");
+		agent.setLevel(9);
 		tb_agent.add(agent);
 	}
-
-	public ArrayList<UserVO> tb_user = new ArrayList<UserVO>(); // 유저 테이블
+	
+	public ArrayList<UserVO> tb_user = new ArrayList<UserVO>();// 유저 테이블
 	{
 		UserVO user = new UserVO();
-		user.setId("asdfg");
-		user.setPassword("asdf");
+		user.setId("qwert");
+		user.setPassword("1234");
+		tb_user.add(user);
 	}
 	public ArrayList<BangVO> tb_bang = new ArrayList<BangVO>(); // 방 테이블
 
@@ -78,130 +79,144 @@ public class Database {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
 		Date today = new Date();
-
+		
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		String startDate = date.format(today);
 		String strDate = date.format(cal.getTime());
-
+		
 		BangVO bang = new BangVO();
-		bang.setPrice(3);
+		bang.setPrice(5.2);
+		bang.setCategory("매매");
+		bang.setArea(134);
+		bang.setState("판매중");
+		bang.setAddress1("대덕구 송촌동");
 		bang.setAddress2("크로바아파트 106동 207호");
-		bang.setWorkDate("1989.02.04");
-		bang.setStartDate(startDate);
-		cal.add(Calendar.DATE, 30); //if문을 사용해 이용권에 따라서 구별 -> 이용권을 추가로 구매했을시도 추가해준다.
-		bang.setEndDate(strDate);
-		bang.setId("서익중개사");
 		bang.setOption1("방 3개, 화장실 2개");
 		bang.setOption2("시청역");
-		bang.setAddress1("서구 송촌동");
+		bang.setId("서익중개사");
+		bang.setStartDate(startDate);
+		bang.setEndDate(strDate);
+		cal.add(Calendar.DATE, 30); //if문을 사용해 이용권에 따라서 구별 -> 이용권을 추가로 구매했을시도 추가해준다.
+		tb_bang.add(bang);
+		
+//		
+		bang = new BangVO();
+		bang.setPrice(1.5);
+		bang.setCategory("전세");
+		bang.setArea(134);
 		bang.setState("판매중");
+		bang.setAddress1("대덕구 송촌동");
+		bang.setAddress2("한가람아파트 308동 1201호");
+		bang.setOption1("방 3개, 화장실 2개");
+		bang.setOption2("없음");
+		bang.setId("해솔중개사");
+		bang.setStartDate(startDate);
+		cal.add(Calendar.DATE, 60); 
+		bang.setEndDate(strDate);
+		tb_bang.add(bang);
+		
+		bang = new BangVO();
+		bang.setPrice(7.5);
+		bang.setCategory("전세");
+		bang.setArea(112);
+		bang.setState("판매중");
+		bang.setAddress1("대덕구 송촌동");
+		bang.setAddress2("장서익아파트 208동 1201호");
+		bang.setOption1("방 13개, 화장실 2개");
+		bang.setOption2("없음");
+		bang.setId("해솔중개사");
+		bang.setStartDate(startDate);
+		cal.add(Calendar.DATE, 60); 
+		bang.setEndDate(strDate);
+		tb_bang.add(bang);
+		
+		bang = new BangVO();
+		bang.setPrice(3);
 		bang.setCategory("매매");
 		bang.setArea(134);
+		bang.setState("판매중");
+		bang.setAddress1("중구 문화동");
+		bang.setAddress2("센트럴자이아파트 107동 806호");
+		bang.setOption1("방 3개, 화장실 2개");
+		bang.setOption2("서대전네거리역 근처");
+		bang.setId("재권중개사");
+		bang.setStartDate(startDate);
+		bang.setEndDate(strDate);
+		cal.add(Calendar.DATE, 60); 
 		tb_bang.add(bang);
-
+		
 		bang = new BangVO();
 		bang.setPrice(0.6);
-		bang.setAddress2("한가람아파트 308동 1201호");
-		bang.setWorkDate("1998.11.08");
-		bang.setStartDate(startDate);
-		cal.add(Calendar.DATE, 60);
-		bang.setEndDate(strDate);
-		bang.setId("해솔중개사");
-		bang.setOption1("방 3개, 화장실 2개");
-		bang.setOption2("없음");
-		bang.setAddress1("서구 송촌동");
-		bang.setState("판매중");
-		bang.setCategory("전세");
-		bang.setArea(134);
-		tb_bang.add(bang);
-
-		bang = new BangVO();
-		bang.setAddress2("센트럴자이아파트 107동 806호");
-		bang.setWorkDate("2010.05.07");
-		bang.setStartDate(startDate);
-		cal.add(Calendar.DATE, 60);
-		bang.setEndDate(strDate);
-		bang.setId("재권중개사");
-		bang.setOption1("방 3개, 화장실 2개");
-		bang.setOption2("서대전네거리역");
-		bang.setAddress1("중구 문화동");
-		bang.setState("판매중");
-		bang.setCategory("매매");
-		bang.setArea(134);
-		tb_bang.add(bang);
-
-		bang = new BangVO();
-		bang.setAddress2("한숲아파트 308동 1201호");
-		bang.setWorkDate("1992.01.24");
-		bang.setStartDate(startDate);
-		cal.add(Calendar.DATE, 60);
-		bang.setEndDate(strDate);
-		bang.setId("재권중개사");
-		bang.setOption1("방 1개, 화장실 1개");
-		bang.setOption2("없음");
-		bang.setAddress1("동구 용전동");
-		bang.setState("판매중");
 		bang.setCategory("월세");
 		bang.setArea(51);
-		tb_bang.add(bang);
-
-		bang = new BangVO();
-		bang.setAddress2("신동아파밀리에아파트 608동 504호");
-		bang.setWorkDate("2015.09.11");
-		bang.setStartDate(startDate);
-		cal.add(Calendar.DATE, 60);
-		bang.setEndDate(strDate);
-		bang.setId("서익중개사");
-		bang.setOption1("방 4개, 화장실 2개");
-		bang.setOption2("없음");
-		bang.setAddress1("동구 홍도동");
 		bang.setState("판매중");
+		bang.setAddress1("동구 용전동");
+		bang.setAddress2("한숲아파트 308동 1201호");
+		bang.setOption1("방 1개, 화장실 1개");
+		bang.setOption2("없음");
+		bang.setId("재권중개사");
+		bang.setStartDate(startDate);
+		bang.setEndDate(strDate);
+		cal.add(Calendar.DATE, 60); 
+		tb_bang.add(bang);
+		
+		bang = new BangVO();
+		bang.setPrice(2.5);
 		bang.setCategory("전세");
 		bang.setArea(134);
+		bang.setState("판매중");
+		bang.setAddress1("동구 홍도동");
+		bang.setAddress2("신동아파밀리에아파트 608동 504호");
+		bang.setOption1("방 4개, 화장실 2개");
+		bang.setOption2("없음");
+		bang.setId("서익중개사");
+		bang.setStartDate(startDate);
+		cal.add(Calendar.DATE, 60); 
+		bang.setEndDate(strDate);
 		tb_bang.add(bang);
-
+		
 	}
 	public ArrayList<BangVO> tb_approve = new ArrayList<BangVO>(); //매물 승인신청 대기 테이블
 	public ArrayList<CartVO> tb_cart = new ArrayList<CartVO>(); // 유저 찜목록 테이블
-	public ArrayList<AgentcartVO> tb_agentcart = new ArrayList<AgentcartVO>(); // 중개인찜목록테이블
+	public ArrayList<AgentcartVO> tb_agentcart = new ArrayList<AgentcartVO>(); // 중개인찜목록테이블																		
 	public ArrayList<DealVO> tb_deal = new ArrayList<DealVO>(); // 거래 테이블
 	public ArrayList<NoticeVO> tb_notice = new ArrayList<NoticeVO>(); // 공지 테이블
 	{
-
+		
 		NoticeVO notice = new NoticeVO();
 		notice.setNum(1);
 		notice.setAgentId("lovelysh24");
 		notice.setTitle("급매물 올라왔습니다.");
-//      notice.setDate(strDate);
+//		notice.setDate(strDate);
 		notice.setContents("둔산동 크로바아파트 매매가가 상승하였습니다.");
 		tb_notice.add(notice);
-
+		
 		notice = new NoticeVO();
 		notice.setNum(2);
 		notice.setAgentId("lovelysh24");
 		notice.setTitle("개인정보처리방침 개정 안내");
-//      notice.setDate(strDate);
+//		notice.setDate(strDate);
 		notice.setContents("새로운 '개인정보처리방침'적용에 대한 사전 안내 말씀드립니다.");
 		tb_notice.add(notice);
-
+		
 	}
-	public ArrayList<TicketInfoVO> tb_ticketinfo = new ArrayList<TicketInfoVO>(); // 티켓정보테이블
-	{
-
+	public ArrayList<TicketInfoVO> tb_ticketinfo = new ArrayList<TicketInfoVO>(); // 티켓정보테이블	
+	{	
+		
 		TicketInfoVO ticketInfo = new TicketInfoVO();
 		ticketInfo.setName("30일 이용권");
 		ticketInfo.setPrice(15900);
 		ticketInfo.setPeriod(30);
 		ticketInfo.setNumber(3);
 		tb_ticketinfo.add(ticketInfo);
-
+		
 		ticketInfo = new TicketInfoVO();
 		ticketInfo.setName("60일 이용권");
 		ticketInfo.setPrice(25900);
 		ticketInfo.setPeriod(60);
 		ticketInfo.setNumber(6);
 		tb_ticketinfo.add(ticketInfo);
-
+		
 		ticketInfo = new TicketInfoVO();
 		ticketInfo.setName("90일 이용권");
 		ticketInfo.setPrice(39900);
@@ -211,6 +226,7 @@ public class Database {
 	}
 	public ArrayList<TicketVO> tb_ticket = new ArrayList<TicketVO>(); // 티켓 테이블
 }
+
 
 
 

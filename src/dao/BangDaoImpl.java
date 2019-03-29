@@ -28,30 +28,28 @@ public class BangDaoImpl implements BangDao {
 	}
 
 	@Override
-	public HashMap<String, ArrayList<String>> searchKeyList() {
-//		지역분류로 검색할 때 메뉴에 제시할 구/동 데이터 생성
-		HashMap<String, ArrayList<String>> searchKey = new HashMap<String, ArrayList<String>>();
-		String[] addr1 = {"중구","서구","동구","대덕구","유성구"};
-		String[][] addr2 = {
-				{"문화동","b","c","d","e"},
-				{"송촌동","g","h","i","j"},
-				{"용전동","홍도동"},
-				{},
-				{}
-		};
-
-		for(int i=0, n=addr1.length; i<n; i++){
-			searchKey.put(addr1[i], new ArrayList<String>());
-			for(int j=0, m=addr2[i].length; j<m; j++)
-				searchKey.get(addr1[i]).add(addr2[i][j]);
-		}
-		return searchKey;
-	}
-
-	@Override
 	public ArrayList<BangVO> selectList() {
 		
 		return database.tb_bang;
+	}
+
+	@Override
+	public HashMap<String, ArrayList<String>> searchKeyList() {
+//		지역분류로 검색할 때 메뉴에 제시할 구/동 데이터 생성
+		HashMap<String, ArrayList<String>> searchKey = new HashMap<String, ArrayList<String>>();
+		String[] addr1 = {"중구","동구","대덕구"};
+		String[][] addr2 = {
+				{"문화동","대흥동","선화동"},
+				{"홍도동","용운동","용전동"},
+				{"송촌동","중리동","법동"}
+		};
+
+		for(int i=0; i<addr1.length; i++){
+			searchKey.put(addr1[i], new ArrayList<String>());
+			for(int j=0; j<addr2[i].length; j++)
+				searchKey.get(addr1[i]).add(addr2[i][j]);
+		}
+		return searchKey;
 	}
 
 }

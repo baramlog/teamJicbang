@@ -24,7 +24,6 @@ public class UserDaoImpl implements UserDao {
 	}
 	
 	
-	
 	@Override
 	public void insertUser(UserVO user) {
 		database.tb_user.add(user);

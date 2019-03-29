@@ -11,11 +11,11 @@ public class Session {
 		return loginAdmin;
 	}
 
-	public static void setLoginAdmin(AgentVO loginAdmin) {
-		Session.loginAdmin = loginAdmin;
+	/* 3.30 00:54 - ram */
+	/*메서드가 static이라고 써있는것을 삭제하고, Session.loginAdmin이라고 써있는 것을 this.loginAdmin으로 변경*/
+	public void setLoginAdmin(AgentVO loginAdmin) {
+		this.loginAdmin = loginAdmin;
 	}
-
-
 
 	public AgentVO getLoginAgent() {
 		return loginAgent;
