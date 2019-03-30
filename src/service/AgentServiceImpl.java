@@ -5,15 +5,13 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import dao.AgentDao;
-import dao.AgentDaoImpl;
 import vo.AgentVO;
 import vo.BangVO;
 import vo.Session;
-import vo.UserVO;
+import dao.AgentDao;
+import dao.AgentDaoImpl;
 
 public class AgentServiceImpl implements AgentService {
-	
 	AgentDao agentDao = new AgentDaoImpl();
 	Scanner s = new Scanner(System.in);
 	Session session = new Session();

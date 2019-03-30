@@ -6,6 +6,8 @@ import service.AdminService;
 import service.AdminServiceImpl;
 import service.AgentService;
 import service.AgentServiceImpl;
+import service.NoticeService;
+import service.NoticeServiceImpl;
 import service.UserService;
 import service.UserServiceImpl;
 import dao.AgentDao;
@@ -18,6 +20,7 @@ public class AdminController {
 //	UserService userService = new UserServiceImpl();
 //	AgentService agentService = new AgentServiceImpl();
 	AdminService adminService = new AdminServiceImpl();
+	NoticeService notice = new NoticeServiceImpl();
 //	AgentDao agentDao = new AgentDaoImpl();
 //	UserDao userDao = new UserDaoImpl();
 	boolean isContinue = true;
@@ -37,7 +40,7 @@ public class AdminController {
 				adminService.AdminOKList();
 				break;
 			case 2: // 공지사항관리
-				// userService.userjoin();
+				notice.adminMenu();
 				break;
 			case 3: // 로그아웃
 				// agentService.agentjoin();

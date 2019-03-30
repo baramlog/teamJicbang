@@ -1,11 +1,15 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import service.AgentService;
 import service.AgentServiceImpl;
+import service.NoticeService;
+import service.NoticeServiceImpl;
 import service.UserService;
 import service.UserServiceImpl;
+import vo.NoticeVO;
 import dao.AgentDao;
 import dao.AgentDaoImpl;
 import dao.UserDao;
@@ -17,6 +21,7 @@ public class UserController {
 //	UserService userService = new UserServiceImpl();
 //	AgentService agentService = new AgentServiceImpl();
 //	AgentDao agentDao = new AgentDaoImpl();
+	NoticeService notice = new NoticeServiceImpl();
 	UserDao userDao = new UserDaoImpl();
 	boolean isContinue = true;
 
@@ -40,9 +45,10 @@ public class UserController {
 				// userService.userjoin();
 				break;
 			case 3: // 공지사항
-				// userService.userjoin();
+				notice.viewList();
 				break;
 			case 4: // 로그아웃
+				// agentService.agentjoin();
 				isContinue = false;
 				break;
 			}

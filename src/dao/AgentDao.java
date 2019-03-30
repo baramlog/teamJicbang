@@ -15,6 +15,7 @@ public interface AgentDao {
 	AgentVO selectAgent(String key, String value); // 단일중개인 조회
 
 	ArrayList<AgentVO> selectAgentList(); // 전체중개인 조회
+	// void deleteBang(int key); //방삭제
 
 	void updateBang(BangVO bang); // 방 승인요청
 

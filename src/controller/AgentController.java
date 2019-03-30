@@ -1,22 +1,30 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
-import service.AgentService;
-import service.AgentServiceImpl;
-import service.UserService;
-import service.UserServiceImpl;
+import service.NoticeService;
+import service.NoticeServiceImpl;
+import service.TicketService;
+import service.TicketServiceImpl;
+import vo.Session;
+import vo.TicketVO;
 import dao.AgentDao;
 import dao.AgentDaoImpl;
-import dao.UserDao;
-import dao.UserDaoImpl;
+import dao.TicketDao;
+import dao.TicketDaoImpl;
 
 public class AgentController {
 	Scanner in = new Scanner(System.in);
 //	UserService userService = new UserServiceImpl();
-	AgentService agent = new AgentServiceImpl();
+//	AgentService agentService = new AgentServiceImpl();
 	AgentDao agentDao = new AgentDaoImpl();
 //	UserDao userDao = new UserDaoImpl();
+	TicketService ticketService = new TicketServiceImpl();
+	TicketDao ticketDao = new TicketDaoImpl();
+	ArrayList<TicketVO> ticketList = ticketDao.showTicket();
+	NoticeService notice = new NoticeServiceImpl();
+	Session session = new Session();
 	boolean isContinue = true;
 
 	public void agentmenu() {
@@ -32,13 +40,13 @@ public class AgentController {
 
 			switch (menu) {
 			case 1: // 매물등록
-				agent.insertBang();
+				// adminService.answer();
 				break;
 			case 2: // 티켓구매
 				// userService.userjoin();
 				break;
 			case 3: // 공지사항
-				// userService.userjoin();
+				notice.viewList();
 				break;
 			case 4: // 로그아웃
 				// agentService.agentjoin();

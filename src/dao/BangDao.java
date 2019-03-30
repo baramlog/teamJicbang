@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 public interface BangDao {
 
+
 	ArrayList<BangVO> approveList(); //매물등록 승인요청 목록 출력
 
 	ArrayList<BangVO> selectList(); // 방 목록 출력

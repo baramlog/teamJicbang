@@ -100,6 +100,7 @@ public class MainController {
 	}
 	
 	
+	
 	public static void join() { //회원가입
 		String result;
 		Scanner in = new Scanner(System.in);

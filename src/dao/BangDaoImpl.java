@@ -1,7 +1,6 @@
 package dao;
 
 import vo.Database;
-import vo.UserVO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +20,7 @@ public class BangDaoImpl implements BangDao {
 	@Override
 	public void insertBang(BangVO bang) {
 		database.tb_bang.add(bang);
+		database.tb_approve.remove(bang);
 	}
 
 	@Override

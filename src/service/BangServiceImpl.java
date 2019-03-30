@@ -16,7 +16,7 @@ public class BangServiceImpl implements BangService {
 	ArrayList<BangVO> bangList = bangDao.selectList();
 	Scanner s = new Scanner(System.in);
 	ArrayList<BangVO> searchResult = new ArrayList<BangVO>();
-	
+
 	@Override
 	public void selectList() {
 		// 지역을 세분화하여 제시하기 위해 자동으로 생성한 searchKeyList를 가져온다.
@@ -182,4 +182,5 @@ public class BangServiceImpl implements BangService {
 		}
 		
 	}
+
 }

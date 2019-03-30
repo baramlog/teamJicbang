@@ -22,6 +22,7 @@ public class TicketServiceImpl implements TicketService {
 	@Override
 	public void ticketInfo() {
 		AgentVO agent = session.getLoginAgent();
+		System.out.println(agent.getAgentId());
 		int[] sum = new int[]{0, 0, 0};
 		for(int i = 0; i < ticketList.size(); i++){
 			for(int j = 0; j < ticketInfoList.size(); j++){
@@ -31,27 +32,21 @@ public class TicketServiceImpl implements TicketService {
 				}
 			}
 		}
-		for(int i = 0; i < ticketList.size(); i++){
-			for(int j = 0; j < ticketInfoList.size(); j++){
-				if(ticketList.get(i).getAgentId().equals(agent.getAgentId())){
-					System.out.println("티켓 이름: " + ticketInfoList.get(j).getName());
-					System.out.println("매물 등록 가능 개수: " + sum[j]);
-					System.out.println("----------------------------");
-				}
-			}
-			break;
-		}
 		
+		System.out.println(Arrays.toString(sum));
+		
+//		for(int i = 0; i < ticketList.size(); i++){
+//			if(ticketList.get(i).equals(agent.getAgentId())){
+//				System.out.println("티켓 이름: " + ticketList.get(i).getName());
+//				System.out.println("매물 등록 가능 개수: " + sum);
+//			}
+//		}
 	}
 
 	@Override
 	public void buyTicket() {
-		TicketVO ticket = new TicketVO();
 		String id = session.getLoginAgent().getAgentId();
-		for(int i = 0; i < ticketInfoList.size(); i++){
-			System.out.print((i+1) + ". " + ticketInfoList.get(i).getName() + "\t");
-		}
-		System.out.println();
+		System.out.println("1. 30일 이용권\t\t 2. 60일 이용권\t\t 3. 90일 이용권");
 		System.out.println("어떤 티켓을 구매하시겠습니까?");
 		int num = Integer.parseInt(s.nextLine());
 		System.out.println("몇 개를 구매하시겠습니까?");
@@ -60,13 +55,8 @@ public class TicketServiceImpl implements TicketService {
 			for(int j = 0; j < ticketList.size(); j++){
 				if(num == ticketInfoList.get(i).getTnum()){
 					ticketList.get(j).setNumber(ticketInfoList.get(i).getNumber()*num2);
-		            ticketList.get(j).setPrice(ticketInfoList.get(i).getPrice()*num2);
-		            ticketList.get(j).setAgentId(id);
-//					ticket.setNumber(ticketInfoList.get(i).getNumber()*num2);
-//					ticket.setAgentId(id);
-//					ticket.setPrice(ticketInfoList.get(i).getPrice()*num2);
-//					ticket.setName(ticketInfoList.get(i).getName());
-//					ticketDao.insertTicket(ticket);
+					ticketList.get(j).setPrice(ticketInfoList.get(i).getPrice()*num2);
+					ticketList.get(j).setAgentId(id);
 				}
 			}
 		}

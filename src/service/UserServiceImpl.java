@@ -14,7 +14,6 @@ import dao.UserDao;
 import dao.UserDaoImpl;
 
 public class UserServiceImpl implements UserService {
-	
 	Scanner s = new Scanner(System.in);
 	UserDao userDao = new UserDaoImpl();
 	AgentDao agentDao = new AgentDaoImpl();
