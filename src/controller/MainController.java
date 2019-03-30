@@ -12,10 +12,10 @@ import service.NoticeService;
 import service.NoticeServiceImpl;
 import service.UserService;
 import service.UserServiceImpl;
-import vo.AgentVO;
 import vo.Session;
 
 public class MainController {
+	
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -31,7 +31,7 @@ public class MainController {
 		while (isContinue) {
 				System.out.println("                                         ");
 				System.out.println("			┌────────────────────────────┐");
-				System.out.println("			│            직방             │");
+				System.out.println("			│            직방            │");
 				System.out.println("			└────────────────────────────┘");
 				System.out.println();
 			System.out.print("1. 로그인" + "\t");
@@ -52,19 +52,13 @@ public class MainController {
 			BangController bcon = new BangController();
 			NoticeService notice = new NoticeServiceImpl();
 			Session session = new Session();
-
-			//관리자 로그인 시 기능 테스트를 위해 임의로 세션 생성
-			/*AgentVO agent = new AgentVO();
-			agent.setAgentId("admin");
-			agent.setPassword("1234");
-			session.setLoginAdmin(agent);*/
 			
 			switch (menu) {
 			case 1: //로그인
-				adminService.login();
+				login();
 				break;
 			case 2: //회원가입
-				adminService.join();
+				join();
 				break;
 			case 3: //매물검색
 				bcon.bangSelect();
@@ -80,7 +74,56 @@ public class MainController {
 				isContinue = false;
 				break;
 			}
+		}	
+		
+	}
+	
+	public static void login() {	//로그인
+		
+		String result = null;
+		Scanner in = new Scanner(System.in);
+		UserService userService = new UserServiceImpl();
+		AgentService agentService = new AgentServiceImpl();
+		AdminService adminService = new AdminServiceImpl();
+		AdminController adminController = new AdminController();
+		AgentController agentController = new AgentController();
+		UserController userController = new UserController();
+
+		result = userService.usercheck();
+		if(result == "user"){
+			userController.usermenu();
+		}else if(result == "agent"){
+			agentController.agentmenu();
+		}else if(result == "admin"){
+			adminController.adminmenu();
 		}
 	}
+	
+	
+	public static void join() { //회원가입
+		String result;
+		Scanner in = new Scanner(System.in);
+		UserService userService = new UserServiceImpl();
+		AgentService agentService = new AgentServiceImpl();
+		AdminService adminService = new AdminServiceImpl();
+		AdminController adminController = new AdminController();
+		AgentController agentController = new AgentController();
+		UserController userController = new UserController();
+		
+		System.out.println("1. 사용자");
+		System.out.println("2. 중개인");
+		System.out.print("해당하는 사용자 입력>>");
+		int who = Integer.parseInt(in.nextLine());
+		switch (who) {
+		case 1:
+			userService.userjoin();
+			break;
+		case 2:
+			agentService.agentjoin();
+			break;
+		}
+	}
+	
+	
 
 }

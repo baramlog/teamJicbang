@@ -2,6 +2,8 @@ package controller;
 
 import java.util.Scanner;
 
+import service.AdminService;
+import service.AdminServiceImpl;
 import service.AgentService;
 import service.AgentServiceImpl;
 import service.UserService;
@@ -13,10 +15,11 @@ import dao.UserDaoImpl;
 
 public class AdminController {
 	Scanner in = new Scanner(System.in);
-	UserService userService = new UserServiceImpl();
-	AgentService agentService = new AgentServiceImpl();
-	AgentDao agentDao = new AgentDaoImpl();
-	UserDao userDao = new UserDaoImpl();
+//	UserService userService = new UserServiceImpl();
+//	AgentService agentService = new AgentServiceImpl();
+	AdminService adminService = new AdminServiceImpl();
+//	AgentDao agentDao = new AgentDaoImpl();
+//	UserDao userDao = new UserDaoImpl();
 	boolean isContinue = true;
 
 	public void adminmenu() {
@@ -31,7 +34,7 @@ public class AdminController {
 
 			switch (menu) {
 			case 1: // 매물요청리스트
-				// AdminOKList();
+				adminService.AdminOKList();
 				break;
 			case 2: // 공지사항관리
 				// userService.userjoin();

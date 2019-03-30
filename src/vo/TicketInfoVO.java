@@ -1,6 +1,16 @@
 package vo;
 
 public class TicketInfoVO {
+	private  int tnum; //키
+
+	public int getTnum() {
+		return tnum;
+	}
+
+	public void setTnum(int tnum) {
+		this.tnum = tnum;
+	}
+
 	private String name; //티켓 이름
 	private int price; //티켓 가격
 	private int period; //기간

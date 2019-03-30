@@ -24,7 +24,7 @@ public class Database {
 		admin.setAgentId("lovelysh24");
 		admin.setPassword("1234");
 		admin.setName("관리자");
-		admin.setPhone("010-2738-8924");
+		admin.setPhone("01027388924");
 		admin.setEmail("lovelysh24@gmail.com");
 		admin.setLevel(9);
 		tb_agent.add(admin);
@@ -33,36 +33,45 @@ public class Database {
 		agent.setAgentId("abcd123");
 		agent.setPassword("1234");
 		agent.setName("해솔중개사");
-		agent.setPhone("010-2738-8924");
-		agent.setEmail("lovelysh24@gmail.com");
-		agent.setLevel(9);
+		agent.setPhone("01027388925");
+		agent.setEmail("lovelysh25@gmail.com");
+		agent.setLevel(1);
 		tb_agent.add(agent);
 		
 		agent = new AgentVO();
-		agent.setAgentId("abcd123");
+		agent.setAgentId("abcd1234");
 		agent.setPassword("1234");
 		agent.setName("재권중개사");
-		agent.setPhone("010-2738-8924");
-		agent.setEmail("lovelysh24@gmail.com");
-		agent.setLevel(9);
+		agent.setPhone("01027388926");
+		agent.setEmail("lovelysh26@gmail.com");
+		agent.setLevel(1);
 		tb_agent.add(agent);
 		
 		agent = new AgentVO();
-		agent.setAgentId("abcd123");
+		agent.setAgentId("abcd12345");
 		agent.setPassword("1234");
 		agent.setName("서익중개사");
-		agent.setPhone("010-2738-8924");
-		agent.setEmail("lovelysh24@gmail.com");
-		agent.setLevel(9);
+		agent.setPhone("01027388927");
+		agent.setEmail("lovelysh27@gmail.com");
+		agent.setLevel(1);
 		tb_agent.add(agent);
 		
 		agent = new AgentVO();
-		agent.setAgentId("lovelysh");
+		agent.setAgentId("abcd123456");
 		agent.setPassword("1234");
 		agent.setName("성희중개사");
-		agent.setPhone("010-2738-8924");
-		agent.setEmail("lovelysh24@gmail.com");
-		agent.setLevel(9);
+		agent.setPhone("01027388928");
+		agent.setEmail("lovelysh28@gmail.com");
+		agent.setLevel(1);
+		tb_agent.add(agent);
+
+		agent = new AgentVO();
+		agent.setAgentId("agent");
+		agent.setPassword("1234");
+		agent.setName("중개인테스트");
+		agent.setPhone("01027388928");
+		agent.setEmail("lovelysh28@gmail.com");
+		agent.setLevel(1);
 		tb_agent.add(agent);
 	}
 	
@@ -72,9 +81,13 @@ public class Database {
 		user.setId("qwert");
 		user.setPassword("1234");
 		tb_user.add(user);
+
+		user = new UserVO();
+		user.setId("user");
+		user.setPassword("1234");
+		tb_user.add(user);
 	}
 	public ArrayList<BangVO> tb_bang = new ArrayList<BangVO>(); // 방 테이블
-
 	{
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
@@ -177,6 +190,39 @@ public class Database {
 		
 	}
 	public ArrayList<BangVO> tb_approve = new ArrayList<BangVO>(); //매물 승인신청 대기 테이블
+	{
+		BangVO bang = new BangVO();
+		bang.setAddress1("동구 홍도동");
+		bang.setAddress2("신동아파밀리에아파트 608동 504호");
+		bang.setWorkDate("2015.09.11");
+//		bang.setStartDate(startDate);
+//		cal.add(Calendar.DATE, 60); 
+//		bang.setEndDate(strDate);
+		bang.setPrice(2.5);
+		bang.setAgentId("서익중개사");
+		bang.setOption1("방 4개, 화장실 2개");
+		bang.setOption2("없음");
+		bang.setState("판매중");
+		bang.setCategory("전세");
+		bang.setArea(134);
+		tb_approve.add(bang);
+		
+		bang = new BangVO();
+		bang.setAddress1("동구 용전동");
+		bang.setAddress2("한숲아파트 308동 1201호");
+		bang.setWorkDate("2015.09.11");
+//		bang.setStartDate(startDate);
+//		cal.add(Calendar.DATE, 60); 
+//		bang.setEndDate(strDate);
+		bang.setPrice(2.5);
+		bang.setAgentId("서익중개사");
+		bang.setOption1("방 4개, 화장실 2개");
+		bang.setOption2("없음");
+		bang.setState("판매중");
+		bang.setCategory("전세");
+		bang.setArea(134);
+		tb_approve.add(bang);
+	}
 	public ArrayList<CartVO> tb_cart = new ArrayList<CartVO>(); // 유저 찜목록 테이블
 	public ArrayList<AgentcartVO> tb_agentcart = new ArrayList<AgentcartVO>(); // 중개인찜목록테이블																		
 	public ArrayList<DealVO> tb_deal = new ArrayList<DealVO>(); // 거래 테이블

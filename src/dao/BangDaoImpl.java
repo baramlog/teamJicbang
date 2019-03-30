@@ -1,6 +1,7 @@
 package dao;
 
 import vo.Database;
+import vo.UserVO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,21 +13,22 @@ public class BangDaoImpl implements BangDao {
 	Database database = Database.getInstance();
 	
 	@Override
-	public ArrayList<BangVO> selectApproveList() {
+	public ArrayList<BangVO> approveList() {
+		// TODO Auto-generated method stub
 		return database.tb_approve;
 	}
 
 	@Override
-	public void approve(int key) {
-		database.tb_bang.add(database.tb_approve.get(key));
-		database.tb_approve.remove(key);
+	public void insertBang(BangVO bang) {
+		database.tb_bang.add(bang);
 	}
 
 	@Override
-	public void back(int key) {
-		database.tb_approve.remove(key);
+	public void deleteBang(BangVO bang) {
+		database.tb_approve.remove(bang);
+		
 	}
-
+	
 	@Override
 	public ArrayList<BangVO> selectList() {
 		
@@ -51,5 +53,4 @@ public class BangDaoImpl implements BangDao {
 		}
 		return searchKey;
 	}
-
 }

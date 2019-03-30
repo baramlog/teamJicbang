@@ -17,6 +17,7 @@ public class BangVO {
 	private String agentName; //중개인 이름
 	private String agentId; //중개인 아이디로 나머지 불러오기
 	private String startDate; //등록일자
+	private String workDate; //준공일자
 	private String endDate; //등록이 끝나는 날짜
 	
 	public int getBangNum() {
@@ -108,6 +109,12 @@ public class BangVO {
 	}
 	public void setPrice(double price) {
 		this.price = price;
+	}
+	public String getWorkDate() {
+		return workDate;
+	}
+	public void setWorkDate(String workDate) {
+		this.workDate = workDate;
 	}
 	
 //	public void setPrice(double d) {

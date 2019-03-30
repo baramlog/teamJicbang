@@ -14,9 +14,9 @@ import dao.UserDaoImpl;
 public class UserController {
 
 	Scanner in = new Scanner(System.in);
-	UserService userService = new UserServiceImpl();
-	AgentService agentService = new AgentServiceImpl();
-	AgentDao agentDao = new AgentDaoImpl();
+//	UserService userService = new UserServiceImpl();
+//	AgentService agentService = new AgentServiceImpl();
+//	AgentDao agentDao = new AgentDaoImpl();
 	UserDao userDao = new UserDaoImpl();
 	boolean isContinue = true;
 
@@ -43,7 +43,6 @@ public class UserController {
 				// userService.userjoin();
 				break;
 			case 4: // 로그아웃
-				// agentService.agentjoin();
 				isContinue = false;
 				break;
 			}

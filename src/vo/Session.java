@@ -1,6 +1,7 @@
 package vo;
 
 public class Session {
+	
 	/* 3.28 20:19 - ram */
 	/*로그인유저와 에이전트를 구별하기 위해 변수 추가*/
 	private static AgentVO loginAgent; //agent 로그인상태를 저장
@@ -32,4 +33,5 @@ public class Session {
 	public void setLoginUser(UserVO loginUser) {
 		this.loginUser = loginUser;
 	}
+
 }

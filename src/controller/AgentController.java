@@ -13,16 +13,16 @@ import dao.UserDaoImpl;
 
 public class AgentController {
 	Scanner in = new Scanner(System.in);
-	UserService userService = new UserServiceImpl();
-	AgentService agentService = new AgentServiceImpl();
+//	UserService userService = new UserServiceImpl();
+	AgentService agent = new AgentServiceImpl();
 	AgentDao agentDao = new AgentDaoImpl();
-	UserDao userDao = new UserDaoImpl();
+//	UserDao userDao = new UserDaoImpl();
 	boolean isContinue = true;
 
 	public void agentmenu() {
 		while (isContinue) {
 			System.out.println("메뉴를 선택해주세요.");
-			System.out.print("1. 매물등록" + "\t");
+			System.out.print("1. 매물등록요청" + "\t");
 			System.out.print("2. 티켓구매" + "\t\t");
 			System.out.print("3. 공지사항" + "\t\t");
 			System.out.println("4. 로그아웃");
@@ -32,7 +32,7 @@ public class AgentController {
 
 			switch (menu) {
 			case 1: // 매물등록
-				// adminService.answer();
+				agent.insertBang();
 				break;
 			case 2: // 티켓구매
 				// userService.userjoin();

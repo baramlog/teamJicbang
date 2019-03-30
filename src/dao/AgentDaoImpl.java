@@ -15,12 +15,15 @@ public class AgentDaoImpl implements AgentDao {
 	
 	@Override
 	public AgentVO selectAgent(String key, String value) {
-		for(int i = 0 ; i < database.tb_agent.size(); i++){
+		for(int i = 0; i < database.tb_agent.size(); i++){
 			AgentVO agent = database.tb_agent.get(i);
-			
 			if(key.equals("ID")){
 				if(agent.getAgentId().equals(value)){
-					return agent;
+					if(key.equals("PHONE")){
+						if(agent.getPhone().equals(value)){
+							return agent;
+						}
+					}
 				}
 			}
 		}
@@ -43,8 +46,8 @@ public class AgentDaoImpl implements AgentDao {
 
 
 	@Override
-	public void updateBang(int key) {
-		// TODO Auto-generated method stub
+	public void updateBang(BangVO bang) {
+		database.tb_approve.add(bang);
 		
 	}
 

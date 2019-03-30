@@ -3,34 +3,89 @@ package service;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import controller.AdminController;
+import controller.AgentController;
+import controller.UserController;
 import dao.AgentDao;
 import dao.AgentDaoImpl;
+import dao.BangDao;
+import dao.BangDaoImpl;
+import dao.UserDao;
+import dao.UserDaoImpl;
 import vo.AgentVO;
+import vo.BangVO;
+import vo.Database;
 import vo.UserVO;
 
 public class AdminServiceImpl implements AdminService {
-	Scanner in = new Scanner(System.in);
+	Scanner s = new Scanner(System.in);
 	UserService userService = new UserServiceImpl();
 	AgentService agentService = new AgentServiceImpl();
-
+	BangDao bangDao = new BangDaoImpl();
+	UserDao userDao = new UserDaoImpl();
 	AgentDao agentDao = new AgentDaoImpl();
+//	AdminController adminController = new AdminController();
+//	AgentController agentController = new AgentController();
+//	UserController userController = new UserController();
+	boolean isContinue = true;
 
 	@Override
 	public void AdminOKList() {
-		// TODO Auto-generated method stub
+		ArrayList<BangVO> approveList = bangDao.approveList();
+		int idx = 1;
+		System.out.println("------------승인요청리스트-----------------");
+		for(BangVO bang : approveList){
+			bang.setNum(idx++);
+			System.out.println("No. " + bang.getNum());
+			System.out.println("구, 동 : " + bang.getAddress1());
+			System.out.println("상세 주소 : " + bang.getAddress2());
+			System.out.println("----------------------------------------");
+		}
+		
+		System.out.println("1.승인	2.반려");
+		int inp = Integer.parseInt(s.nextLine());
+		switch(inp){
+		case 1 :
+			AdminYes();
+			break;
+		case 2 :
+			AdminNo();
+			break;
+		}
 
 	}
 
 	@Override
 	public void AdminYes() {
-		// TODO Auto-generated method stub
-
+		System.out.println("승인할 방의 번호를 입력해주세요.");
+		int inp = Integer.parseInt(s.nextLine());
+		
+		ArrayList<BangVO> approveList = bangDao.approveList();
+		
+		for(int i = 1; i < approveList.size(); i++){
+			if(approveList.get(i).getNum() == inp){
+				BangVO bang = new BangVO();
+				bang = approveList.get(i);
+				bangDao.insertBang(bang);
+			}
+		}
+		
 	}
 
 	@Override
 	public void AdminNo() {
-		// TODO Auto-generated method stub
-
+		System.out.println("반려할 방의 번호를 입력해주세요.");
+		int inp = Integer.parseInt(s.nextLine());
+		
+		ArrayList<BangVO> approveList = bangDao.approveList();
+		
+		for(int i = 1; i < approveList.size(); i++){
+			if(approveList.get(i).getNum() == inp){
+				BangVO bang = new BangVO();
+				bang = approveList.get(i);
+				bangDao.deleteBang(bang);
+			}
+		}
 	}
 
 	@Override
@@ -44,87 +99,4 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 
 	}
-
-	@Override
-	public void login() {
-		// TODO Auto-generated method stub
-		System.out.println("1. 사용자");
-		System.out.println("2. 중개인");
-		System.out.println("3. 관리자");
-		System.out.print("해당하는 사용자 입력>>");
-		int who = Integer.parseInt(in.nextLine());
-		switch (who) {
-		case 1:
-			userService.usercheck();
-			break;
-		case 2:
-			agentService.agentcheck();
-			break;
-		case 3:
-			agentService.agentcheck();
-			break;
-		}
-	}
-
-	@Override
-	public void join() {
-		// TODO Auto-generated method stub
-		System.out.println("1. 사용자");
-		System.out.println("2. 중개인");
-		System.out.print("해당하는 사용자 입력>>");
-		int who = Integer.parseInt(in.nextLine());
-		switch (who) {
-		case 1:
-			userService.userjoin();
-			break;
-		case 2:
-			agentService.agentjoin();
-			break;
-		}
-	}
-
-	/*public void admincheck() {
-		// AgentVO userCheck = agentDao.selectUser("ID", agent.getId());
-		ArrayList<AgentVO> agentList = agentDao.selectAgentList();
-		for (AgentVO ag : agentList) {
-			System.out.println(ag.getAgentId());
-		}
-		System.out.print("아이디 : ");
-		String id = in.nextLine();
-		System.out.print("비번 : ");
-		String password = in.nextLine();
-
-		// AgentVO adminCheck = agentDao.selectAgent("ID", agent.getAgentId());
-
-		for (int i = 0; i < agentList.size(); i++) {
-			if (agentList.get(i).getAgentId().equals(id)) {
-				System.out.println("환영합니다 관리자님 : "
-						+ agentList.get(i).getAgentId() + "  " + "로그아웃");
-			}else
-				break;
-		}
-		System.out.println("나가세요");
-	}*/
 }
-
-/*
- * @Override public void userList() { ArrayList<UserVO> userList =
- * userDao.selectUserList();
- * 
- * System.out.println("---------------------------------"); for (UserVO user :
- * userList) { System.out.println("아이디 : " + user.getId());
- * System.out.println("---------------------------------"); }
- * 
- * }
- * 
- * @Override public void agentList() { ArrayList<AgentVO> agentList =
- * agentDao.selectAgentList();
- * 
- * System.out.println("---------------------------------"); for (AgentVO agent :
- * agentList) { System.out.println("아이디 : " + agent.getAgentId());
- * System.out.println("공인중개사 이름 : " + agent.getName());
- * System.out.println("핸드폰번호 : " + agent.getPhone());
- * System.out.println("이메일 : " + agent.getEmail());
- * System.out.println("---------------------------------"); } }
- */
-
