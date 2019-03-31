@@ -1,6 +1,5 @@
 package service;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,12 +9,15 @@ import vo.BangVO;
 import vo.Session;
 import dao.AgentDao;
 import dao.AgentDaoImpl;
+import dao.BangDao;
+import dao.BangDaoImpl;
 
 public class AgentServiceImpl implements AgentService {
 	AgentDao agentDao = new AgentDaoImpl();
+	BangDao bangDao = new BangDaoImpl();
 	Scanner s = new Scanner(System.in);
 	Session session = new Session();
-	
+
 	@Override
 	public void agentjoin() {
 		
@@ -97,28 +99,41 @@ public class AgentServiceImpl implements AgentService {
 
 	
 	@Override
-	public void insertBang(){ //방 등록 -agent
+	public void writeBang(){ //방 등록 -agent
 		Scanner s = new Scanner(System.in);
 		
+		System.out.println();
 		System.out.print("면적 : ");
 		int area = Integer.parseInt(s.nextLine());
-		System.out.print("주소(구동) : ");
+		System.out.print("주소(ㅇㅇ구 ㅇㅇ동) : ");
 		String address1 = s.nextLine();
 		System.out.print("상세주소 : ");
 		String address2 = s.nextLine();
-		System.out.print("방, 화장실 개수 : ");
+		System.out.print("방, 화장실 개수(방 ㅇ개, 화장실 ㅇ개 ): ");
 		String option1 = s.nextLine();
-		System.out.print("역세권 : ");
+		System.out.print("역세권 (ㅇㅇ역 근처, 없으면 '없음'): ");
 		String option2 = s.nextLine();
-		System.out.print("전월세, 매매 : ");
+		System.out.print("전세/월세/매매 : ");
 		String category = s.nextLine();
 		System.out.print("준공일자(YYYY-MM-DD) : ");
 		String workDate = s.nextLine();
 		System.out.print("가격(단위 : 억) : ");
 		double price = Double.parseDouble(s.nextLine());
-
-		BangVO bang = new BangVO();
+		System.out.println();
 		
+		System.out.println("작성하신 신청서 내용이 맞습니까?");
+		System.out.println();
+		System.out.println("면적: " + area);
+		System.out.println("주소(구동): " + address1);
+		System.out.println("상세주소: " + address2);
+		System.out.println("방, 화장실 개수: " + option1);
+		System.out.println("역세권: " + option2);
+		System.out.println("전세/월세/매매: " + category);
+		System.out.println("준공일자: " + workDate);
+		System.out.println("가격: " + price + "억 원");
+		System.out.println();
+		
+		BangVO bang = new BangVO();
 		bang.setAgentId(session.getLoginAgent().getAgentId());
 		bang.setArea(area);
 		bang.setAddress1(address1);
@@ -129,10 +144,31 @@ public class AgentServiceImpl implements AgentService {
 		bang.setWorkDate(workDate);
 		bang.setPrice(price);
 		
-		agentDao.updateBang(bang);
+		checkInsertBang(bang);
 		
-//		BangVO userCheck = bangDao.selectUser("POST", bang.getAddress1().trim() + bang.getAddress2().trim());
-		
+	}
+	
+	@Override
+	public void checkInsertBang(BangVO bang){
+		System.out.print("작성한 내용이 맞으시면 'y', 틀리면 'n'을 적어주세요. >");
+		String yesno = s.nextLine();
+		switch(yesno){
+			case "y":
+				agentDao.updateBang(bang);
+				System.out.println("등록이 완료되었습니다. 관리자 승인시 등록됩니다.");
+				break;
+			case "n":
+				writeBang();
+				break;
+			default:
+				checkInsertBang(bang);
+				break;
+		}
+	}
+	
+	@Override
+	public void insertBang(BangVO bang){
+		bangDao.insertBang(bang);
 	}
 	@Override
 	public void searchBang(){ //방 검색

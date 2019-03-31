@@ -10,20 +10,14 @@ import service.TicketServiceImpl;
 import vo.Session;
 import vo.TicketInfoVO;
 import vo.TicketVO;
-import dao.AgentDao;
-import dao.AgentDaoImpl;
 import dao.TicketDao;
 import dao.TicketDaoImpl;
 
 public class AgentController {
 	Scanner in = new Scanner(System.in);
-	//   UserService userService = new UserServiceImpl();
-	AgentService agentService = new AgentServiceImpl();
-	AgentDao agentDao = new AgentDaoImpl();
-	//   UserDao userDao = new UserDaoImpl();
+    AgentService agentService = new AgentServiceImpl();
 	TicketService ticketService = new TicketServiceImpl();
 	boolean isContinue = true;
-	Session session = new Session();
 	Scanner s = new Scanner(System.in);
 	TicketDao ticketDao = new TicketDaoImpl();
 	ArrayList<TicketInfoVO> ticketInfoList = ticketDao.TicketList();
@@ -38,7 +32,7 @@ public class AgentController {
 			System.out.println("5. 로그아웃");
 			System.out.println();
 
-			System.out.print("메뉴에 해당하는 번호 입력>");
+			System.out.print("메뉴에 해당하는 번호 입력 >");
 			int menu = Integer.parseInt(in.nextLine());
 			System.out.println();
 
@@ -95,22 +89,24 @@ public class AgentController {
 
 		}
 	}
-
+	
 	public void addBang(){
 		System.out.print("매물을 등록하시겠습니까?(y/n) >");
 		String yesno = s.nextLine();
 		System.out.println();
 		switch(yesno){
-			case "y":
-				System.out.println("신청서 양식을 출력합니다. 작성해주세요.");
-				agentService.insertBang();
-				break;
-			case "n":
-				agentmenu();
-				break;
-			default:
-				addBang();
-				break;
+		case "y":
+			System.out.println("신청서 양식을 출력합니다. 작성해주세요.");
+			agentService.writeBang();
+			break;
+		case "n":
+			agentmenu();
+			break;
+		default:
+			addBang();
+			break;
 		}
 	}
+	
+	
 }
