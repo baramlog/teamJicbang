@@ -7,6 +7,8 @@ import java.util.Set;
 
 import controller.BangController;
 import vo.BangVO;
+import vo.DealVO;
+import vo.Session;
 import dao.BangDao;
 import dao.BangDaoImpl;
 
@@ -16,6 +18,13 @@ public class BangServiceImpl implements BangService {
 	ArrayList<BangVO> bangList = bangDao.selectList();
 	Scanner s = new Scanner(System.in);
 	ArrayList<BangVO> searchResult = new ArrayList<BangVO>();
+	HashMap<Integer, BangVO> matchIndexList = new HashMap<Integer, BangVO>();
+	//   DealDao dealDao =new DealDaoImpl();
+	DealVO deal = new DealVO();
+	ArrayList<DealVO> dealList = new ArrayList<DealVO>();
+	int printNum;
+	String price;
+	Session session = new Session();
 
 	@Override
 	public void selectList() {
@@ -66,7 +75,6 @@ public class BangServiceImpl implements BangService {
 
 		// 목록상 출력되는 번호와 방이 가지는 키값이 일치하지 않기 때문에 방번호-방객체를 매치하여 저장하는 해시맵 생성
 
-
 		// 출력
 		printList();
 	}
@@ -87,12 +95,11 @@ public class BangServiceImpl implements BangService {
 
 		printList();
 
-
 	}
 
 	@Override
 	public void printList() {
-		HashMap<Integer, BangVO> matchIndexList = new HashMap<Integer, BangVO>();
+		//HashMap<Integer, BangVO> matchIndexList = new HashMap<Integer, BangVO>();
 		boolean isContinue = true;
 		while (isContinue) {
 			if (searchResult.size() > 0)
@@ -109,7 +116,7 @@ public class BangServiceImpl implements BangService {
 				System.out.println("번호: " + idx++);
 				System.out.println("주소: " + item.getAddress1() + " "
 						+ item.getAddress2());
-				String price;
+				//String price;
 				if((int)item.getPrice() == 0){
 					price = (int)(item.getPrice()*10) + "천만원";
 				}else{
@@ -131,7 +138,7 @@ public class BangServiceImpl implements BangService {
 					System.out.print("자세히 볼 방의 번호를 입력하세요. > ");
 					String cmd4 = s.nextLine();
 					BangVO bang = matchIndexList.get(Integer.parseInt(cmd4));
-
+					printNum = Integer.parseInt(cmd4);
 					String price;
 					if((int)bang.getPrice() == 0){
 						price = (int)(bang.getPrice()*10) + "천만원";
@@ -165,7 +172,8 @@ public class BangServiceImpl implements BangService {
 
 							break;
 						case 3:
-							// 방 사는 메서드 호출하여 처리
+							purchase();
+							isContinue = false;
 							break;
 						case 4:
 
@@ -175,6 +183,8 @@ public class BangServiceImpl implements BangService {
 							break;
 					}
 					break;
+
+
 				case "n":
 					isContinue = false;
 					break;
@@ -184,9 +194,58 @@ public class BangServiceImpl implements BangService {
 					System.out.println();
 					break;
 			}
-
 		}
-
 	}
+
+	@Override
+	public void purchase() {
+//      UserVO user = session.getLoginUser();
+		BangVO bang = matchIndexList.get(printNum);
+/*      String id = session.getLoginUser().getId();
+      String agentId = bang.getAgentId();
+      deal.setUserId(id);
+      deal.setAgentId(agentId);*/
+
+
+		System.out.print("선택하신 매물을 구매하시겠습니까?(y/n) > ");
+		String cmd7 = s.nextLine();
+		switch (cmd7) {
+			case "y":
+				System.out.println("매물 거래를 진행하겠습니다.");
+
+				boolean check = true;
+				while(check){
+					System.out.print("거래액을 제시해주십시오.(단위: 억)(일단 매물금액의 90%금액으로 정했어요.)");
+					double cmd8 = Double.parseDouble(s.nextLine());
+
+					deal.setDealMoney(cmd8);
+					System.out.println(cmd8 + "억");
+					System.out.println(bang.getPrice());
+//					System.out.println("입력제안:"+bang.getPrice() * 0.9);
+
+					if(cmd8 == bang.getPrice() * 0.9){
+
+						System.out.println("거래가 성사되었습니다.");
+						System.out.println("중개인에게 " + cmd8 + "억원이 전달되었습니다.");
+						System.out.println("내집장만  축하합니다! 좋은 일 가득한 집이 되기를 바랍니다 ^^");
+						check = false;
+						break;
+					}else{
+						System.out.println("거래액을 조정하여 다시 제시해주십시오");
+					}
+				}
+				break;
+			case "n":
+				break;
+			default:
+				System.out.println();
+				System.out.println("y/n 중 하나를 선택해주세요.");
+				System.out.println();
+				break;
+		}
+	}
+
+
+
 
 }

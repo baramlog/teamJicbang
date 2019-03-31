@@ -10,11 +10,16 @@ public class DealDaoImpl implements DealDao {
 	Database database = Database.getInstance();
 
 	@Override
-	public ArrayList<DealVO> method1() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<DealVO> showDeal() {
+		return database.tb_deal;
 	}
-	
-	
+
+	@Override
+	public void insertDeal(DealVO deal) {
+		database.tb_deal.add(deal);
+
+	}
+
+
 
 }

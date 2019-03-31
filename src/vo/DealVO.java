@@ -7,13 +7,13 @@ public class DealVO {
 	private Date dealDate; //거래 일자
 	private String userId; //유저 아이디
 	private String agentId; //중개사 아이디
-	private int dealMoney; //제시 가격
+	private double dealMoney; //제시 가격
 	private boolean check; //가격 확인
-	
-	public int getDealMoney() {
+
+	public double getDealMoney() {
 		return dealMoney;
 	}
-	public void setDealMoney(int dealMoney) {
+	public void setDealMoney(double dealMoney) {
 		this.dealMoney = dealMoney;
 	}
 	public boolean isCheck() {
@@ -46,5 +46,5 @@ public class DealVO {
 	public void setAgentId(String agentId) {
 		this.agentId = agentId;
 	}
-	
+
 }
