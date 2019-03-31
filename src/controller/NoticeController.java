@@ -1,5 +1,5 @@
 /*
-package controller;
+package login;
 
 import dao.NoticeDao;
 import dao.NoticeDaoImpl;

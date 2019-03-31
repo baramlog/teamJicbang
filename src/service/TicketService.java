@@ -1,6 +1,9 @@
 package service;
 
+import vo.TicketVO;
+
 public interface TicketService {
 	void ticketInfo();
-	void buyTicket();
+	TicketVO ticketPrint(int num1, int num2);
+	void insertTicket(TicketVO ticket);
 }

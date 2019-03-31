@@ -115,8 +115,8 @@ public class AgentServiceImpl implements AgentService {
 		System.out.print("준공일자(YYYY-MM-DD) : ");
 		String workDate = s.nextLine();
 		System.out.print("가격(단위 : 억) : ");
-		double price = Float.parseFloat(s.nextLine());
-		
+		double price = Double.parseDouble(s.nextLine());
+
 		BangVO bang = new BangVO();
 		
 		bang.setAgentId(session.getLoginAgent().getAgentId());

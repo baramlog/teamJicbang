@@ -8,8 +8,9 @@ public interface TicketDao {
 
 	ArrayList<TicketInfoVO> showTicketShop(); // 티켓샵 보기
 
-	void buyTicket(int key, String agentId); // 티켓구입
+	void insertTicket(TicketVO ticket); //티켓구입이력 넣기
 
 	ArrayList<TicketVO> showTicket(); // 구매한 티켓 이력 출력
 	ArrayList<TicketInfoVO> TicketList();
+
 }

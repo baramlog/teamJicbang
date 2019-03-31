@@ -7,18 +7,18 @@ import vo.TicketInfoVO;
 import vo.TicketVO;
 
 public class TicketDaoImpl implements TicketDao {
-	
+
 	Database database = Database.getInstance();
 
 	@Override
 	public ArrayList<TicketInfoVO> showTicketShop() {
-		
+
 		return null;
 	}
 
 	@Override
-	public void buyTicket(int key, String agentId) {
-		
+	public void insertTicket(TicketVO ticket){
+		database.tb_ticket.add(ticket);
 	}
 
 	@Override
@@ -28,8 +28,7 @@ public class TicketDaoImpl implements TicketDao {
 
 	@Override
 	public ArrayList<TicketInfoVO> TicketList() {
-		
+
 		return database.tb_ticketinfo;
 	}
-
 }

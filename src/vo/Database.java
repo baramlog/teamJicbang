@@ -74,6 +74,15 @@ public class Database {
 		agent.setLevel(9);
 		tb_agent.add(agent);
 
+		agent = new AgentVO();
+		agent.setAgentId("agent");
+		agent.setPassword("1234");
+		agent.setName("test");
+		agent.setPhone("010-2738-8924");
+		agent.setEmail("lovelysh24@gmail.com");
+		agent.setLevel(1);
+		tb_agent.add(agent);
+
 
 	}
 	

@@ -27,15 +27,15 @@ public class BangServiceImpl implements BangService {
 		// 번호로 입력받기 때문에 String으로 이루어진 keySet을 배열로 변환하여 사용
 		Object[] keyArray = keySet.toArray();
 
-		System.out.print("원하는 구를 입력하세요.(예시: 서구) > ");
+		System.out.print("원하는 구를 선택하세요. > ");
 		for (int i = 0; i < keyArray.length; i++)
 			System.out.print((i + 1) + "." + keyArray[i] + "  ");
 		String cmd = s.nextLine();
-		
+
 		/*
-		 * 
+		 *
 		 * <해야할 것>
-		 * 
+		 *
 		 * 모든 입력값은 숫자만 입력한 것인지, 또는 문자만 입력한 것인지 정규식체크를 한후 진행해야 할듯 정해진 형식이 아닌 값을
 		 * 입력할 경우 에러가 남. 정규식 체크하는 공통 메서드 필요
 		 */
@@ -46,7 +46,7 @@ public class BangServiceImpl implements BangService {
 		} else
 			return;
 
-		System.out.print("원하는 동을 입력하세요.(예시: 선화동) > ");
+		System.out.print("원하는 동을 선택하세요. > ");
 
 		// 키값에 해당되는 ArrayList를 배열에 담아둔다.
 		ArrayList<String> menu = searchKey.get(cmd);
@@ -65,7 +65,7 @@ public class BangServiceImpl implements BangService {
 		}
 
 		// 목록상 출력되는 번호와 방이 가지는 키값이 일치하지 않기 때문에 방번호-방객체를 매치하여 저장하는 해시맵 생성
-		
+
 
 		// 출력
 		printList();
@@ -86,7 +86,7 @@ public class BangServiceImpl implements BangService {
 		}
 
 		printList();
-		
+
 
 	}
 
@@ -120,67 +120,73 @@ public class BangServiceImpl implements BangService {
 					}
 				}
 				System.out.println("가격: " + price);
-				System.out.println("날짜: " + item.getWorkDate());
+				System.out.println("등록일자: " + item.getStartDate());
 				System.out.println("-------------------------------------");
 			}
 
 			System.out.print("검색 결과 중 하나를 선택하여 보시겠습니까?(y/n) > ");
 			String cmd3 = s.nextLine();
 			switch (cmd3) {
-			case "y":
-				System.out.print("자세히 볼 방의 번호를 입력하세요. > ");
-				String cmd4 = s.nextLine();
-				BangVO bang = matchIndexList.get(Integer.parseInt(cmd4));
-				
-				String price;
-				if((int)bang.getPrice() == 0){
-					price = (int)(bang.getPrice()*10) + "천만원";
-				}else{
-					if((int)(bang.getPrice()*10 - (int)bang.getPrice()*10)==0){
-						price = (int)bang.getPrice() + "억원";
+				case "y":
+					System.out.print("자세히 볼 방의 번호를 입력하세요. > ");
+					String cmd4 = s.nextLine();
+					BangVO bang = matchIndexList.get(Integer.parseInt(cmd4));
+
+					String price;
+					if((int)bang.getPrice() == 0){
+						price = (int)(bang.getPrice()*10) + "천만원";
 					}else{
-						price = (int)bang.getPrice() + "억 " + (int)(bang.getPrice()*10 - (int)bang.getPrice()*10) + "천만원";
+						if((int)(bang.getPrice()*10 - (int)bang.getPrice()*10)==0){
+							price = (int)bang.getPrice() + "억원";
+						}else{
+							price = (int)bang.getPrice() + "억 " + (int)(bang.getPrice()*10 - (int)bang.getPrice()*10) + "천만원";
+						}
 					}
-				}
-				System.out.println("-------------------------------------");
-				System.out.println(price + "\t" + bang.getCategory() + "\t" + bang.getState());
-				System.out.println("주소: " + bang.getAddress1()
-						+ bang.getAddress2());
-				System.out.println("옵션: " + bang.getOption2());
-				System.out.println("등록일: " + bang.getStartDate());
-				System.out.println("기타 모든 정보..어쩌고저쩌고..다 출력");
-				System.out.println("-------------------------------------");
-				System.out.println("1. 찜   2. 중개인을 찜   3.구매   4. 검색결과 다시보기  5. 홈");
-				System.out.print("메뉴에 해당하는 번호 입력>");
-				BangController bcon = new BangController();
-				
-				String cmd5 = s.nextLine();
-				switch (Integer.parseInt(cmd5)) {
-				case 1:
-					// 찜하는 메서드 호출하여 처리
+					System.out.println("-------------------------------------");
+					System.out.println("\t" + price + "\t   /     " + bang.getCategory() + "(" + bang.getState() + ")");
+					System.out.println("주소: " + bang.getAddress1() + " "
+							+ bang.getAddress2());
+					System.out.println("면적: " + bang.getArea());
+					System.out.println("옵션: " + bang.getOption1() + "    /    " + bang.getOption2());
+					System.out.println("준공일자: " + bang.getWorkDate());
+					System.out.println("\t\t\t" + bang.getAgentName());
+					System.out.println("등록일자: " + bang.getStartDate());
+					System.out.println("-------------------------------------");
+					System.out.println("1. 찜   2. 중개인을 찜   3.구매   4. 검색결과 다시보기  5. 홈");
+					System.out.print("메뉴에 해당하는 번호 입력>");
+					BangController bcon = new BangController();
+
+					String cmd5 = s.nextLine();
+					switch (Integer.parseInt(cmd5)) {
+						case 1:
+							// 찜하는 메서드 호출하여 처리
+							break;
+						case 2:
+
+							break;
+						case 3:
+							// 방 사는 메서드 호출하여 처리
+							break;
+						case 4:
+
+							break;
+						case 5:
+							isContinue = false;
+							break;
+					}
 					break;
-				case 2:
-					
-					break;
-				case 3:
-					// 방 사는 메서드 호출하여 처리
-					break;
-				case 4:
-					
-					break;
-				case 5:
+				case "n":
 					isContinue = false;
 					break;
-				}
-				break;
-			case "n":
-				isContinue = false;
-				break;
-
+				default :
+					System.out.println();
+					System.out.println("y/n 중 하나를 선택해주세요.");
+					System.out.println();
+					break;
 			}
-			break;
+
 		}
-		
+
 	}
 
 }
