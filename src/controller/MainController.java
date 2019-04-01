@@ -2,8 +2,12 @@ package controller;
 
 import java.util.Scanner;
 
+import service.AdminService;
+import service.AdminServiceImpl;
 import service.AgentService;
 import service.AgentServiceImpl;
+import service.BangService;
+import service.BangServiceImpl;
 import service.NoticeService;
 import service.NoticeServiceImpl;
 import service.UserService;
@@ -39,7 +43,12 @@ public class MainController {
 			System.out.print("메뉴에 해당하는 번호 입력>");
 
 			int menu = Integer.parseInt(in.nextLine());
-			
+			System.out.println();
+
+			UserService userService = new UserServiceImpl();
+			AgentService agentService = new AgentServiceImpl();
+			AdminService adminService = new AdminServiceImpl();
+			BangService bangService = new BangServiceImpl();
 			BangController bcon = new BangController();
 			NoticeService notice = new NoticeServiceImpl();
 			Session session = new Session();

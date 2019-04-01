@@ -15,7 +15,27 @@ public class Database {
 		if (instance == null) {
 			instance = new Database();
 		}
+		setPrimaryKey(instance);
 		return instance;
+	}
+
+	public static void setPrimaryKey(Database db) {
+		//방 리스트 키 설정
+		int idx = 1;
+		for (BangVO item : db.tb_bang)
+			item.setBangkey(idx++);
+
+		idx = 1;
+		for (NoticeVO item : db.tb_notice)
+			item.setNum(idx++);
+
+		idx = 1;
+		for (TicketInfoVO item : db.tb_ticketinfo)
+			item.setTnum(idx++);
+
+		idx = 1;
+		for (TicketVO item : db.tb_ticket)
+			item.setNum(idx++);
 	}
 
 	public ArrayList<AgentVO> tb_agent = new ArrayList<AgentVO>(); // 중개인 테이블
@@ -197,7 +217,6 @@ public class Database {
 //		bang.setEndDate(strDate);
 		bang.setPrice(2.5);
 		bang.setAgentId("asdfg");
-		bang.setAgentName("해솔중개사");
 		bang.setOption1("방 4개, 화장실 2개");
 		bang.setOption2("없음");
 		bang.setState("판매중");
@@ -214,7 +233,6 @@ public class Database {
 //		bang.setEndDate(strDate);
 		bang.setPrice(2.5);
 		bang.setAgentId("admin");
-		bang.setAgentName("서익중개사");
 		bang.setOption1("방 4개, 화장실 2개");
 		bang.setOption2("없음");
 		bang.setState("판매중");
@@ -242,7 +260,7 @@ public class Database {
 		notice.setAgentId("lovelysh24");
 		notice.setTitle("개인정보처리방침 개정 안내");
 //		notice.setDate(strDate);
-		notice.setContents("새로운 '개인정보처리방침'적용에 대한 사전 안내 말씀드립니다.\n이용자분께서는 변경되는 개인정보처리방침의 내용을 확인해주시기를 부탁드립니다.");
+		notice.setContents("새로운 '개인정보처리방침'적용에 대한 사전 안내 말씀드립니다.");
 		tb_notice.add(notice);
 		
 	}

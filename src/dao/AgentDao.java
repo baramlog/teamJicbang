@@ -31,5 +31,4 @@ public interface AgentDao {
 	void approveDeal(int key); // 딜이 들어온 매물 승인
 
 	void moneyUp(int dealPrice); // 딜 성사시 금액과 수수료 처리
-
 }

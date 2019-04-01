@@ -232,8 +232,7 @@ public class AgentController {
 		
 		ticketService.applyTicket(num1, num2);
 	}
-	
-	
+
 	public void dealList(){
 		AgentVO agent = session.getLoginAgent();
 		System.out.println("----------------------------"); //리스트 ++
