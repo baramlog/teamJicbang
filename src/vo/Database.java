@@ -64,26 +64,6 @@ public class Database {
 		agent.setEmail("lovelysh24@gmail.com");
 		agent.setLevel(1);
 		tb_agent.add(agent);
-
-		agent = new AgentVO();
-		agent.setAgentId("admin");
-		agent.setPassword("1234");
-		agent.setName("관리자");
-		agent.setPhone("010-2738-8924");
-		agent.setEmail("lovelysh24@gmail.com");
-		agent.setLevel(9);
-		tb_agent.add(agent);
-
-		agent = new AgentVO();
-		agent.setAgentId("agent");
-		agent.setPassword("1234");
-		agent.setName("test");
-		agent.setPhone("010-2738-8924");
-		agent.setEmail("lovelysh24@gmail.com");
-		agent.setLevel(1);
-		tb_agent.add(agent);
-
-
 	}
 	
 	public ArrayList<UserVO> tb_user = new ArrayList<UserVO>();// 유저 테이블
@@ -92,22 +72,10 @@ public class Database {
 		user.setId("qwert");
 		user.setPassword("1234");
 		tb_user.add(user);
-
-		user = new UserVO();
-		user.setId("user");
-		user.setPassword("1234");
-		tb_user.add(user);
 	}
 	public ArrayList<BangVO> tb_bang = new ArrayList<BangVO>(); // 방 테이블
 
 	{
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(new Date());
-		Date today = new Date();
-		
-		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-		String startDate = date.format(today);
-		String strDate = date.format(cal.getTime());
 		
 		BangVO bang = new BangVO();
 		bang.setPrice(5.2);
@@ -117,8 +85,10 @@ public class Database {
 		bang.setAddress1("대덕구 송촌동");
 		bang.setAddress2("크로바아파트 106동 207호");
 		bang.setOption1("방 3개, 화장실 2개");
-		bang.setOption2("시청역");
-		bang.setId("서익중개사");
+		bang.setOption2("시청역 근처");
+		bang.setAgentId("abcd12345");
+		bang.setAgentName("서익중개사");
+		bang.setWorkDate("1997-05-30");
 		bang.setStartDate("2019-02-20");
 		bang.setEndDate("2019-03-31");
 //		cal.add(Calendar.DATE, 30); //if문을 사용해 이용권에 따라서 구별 -> 이용권을 추가로 구매했을시도 추가해준다.
@@ -134,11 +104,12 @@ public class Database {
 		bang.setAddress2("한가람아파트 308동 1201호");
 		bang.setOption1("방 3개, 화장실 2개");
 		bang.setOption2("없음");
-		bang.setId("해솔중개사");
+		bang.setAgentId("asdfg");
+		bang.setAgentName("해솔중개사");
+		bang.setWorkDate("2001-12-10");
 		bang.setStartDate("2019-03-20");
 		bang.setEndDate("2019-04-18");
 //		cal.add(Calendar.DATE, 60); 
-		bang.setEndDate(strDate);
 		tb_bang.add(bang);
 		
 		bang = new BangVO();
@@ -150,11 +121,12 @@ public class Database {
 		bang.setAddress2("장서익아파트 208동 1201호");
 		bang.setOption1("방 13개, 화장실 2개");
 		bang.setOption2("없음");
-		bang.setId("해솔중개사");
+		bang.setAgentId("asdfg");
+		bang.setAgentName("해솔중개사");
+		bang.setWorkDate("2010-09-27");
 		bang.setStartDate("2019-02-20");
 		bang.setEndDate("2019-03-31");
 //		cal.add(Calendar.DATE, 60); 
-		bang.setEndDate(strDate);
 		tb_bang.add(bang);
 		
 		bang = new BangVO();
@@ -166,7 +138,9 @@ public class Database {
 		bang.setAddress2("센트럴자이아파트 107동 806호");
 		bang.setOption1("방 3개, 화장실 2개");
 		bang.setOption2("서대전네거리역 근처");
-		bang.setId("재권중개사");
+		bang.setAgentName("abcd1234");
+		bang.setAgentName("재권중개사");
+		bang.setWorkDate("2002-02-04");
 		bang.setStartDate("2019-03-20");
 		bang.setEndDate("2019-04-18");
 //		cal.add(Calendar.DATE, 60); 
@@ -181,7 +155,9 @@ public class Database {
 		bang.setAddress2("한숲아파트 308동 1201호");
 		bang.setOption1("방 1개, 화장실 1개");
 		bang.setOption2("없음");
-		bang.setId("재권중개사");
+		bang.setAgentName("abcd1234");
+		bang.setAgentName("재권중개사");
+		bang.setWorkDate("1999-03-01");
 		bang.setStartDate("2019-03-20");
 		bang.setEndDate("2019-04-18");
 //		cal.add(Calendar.DATE, 60); 
@@ -196,11 +172,12 @@ public class Database {
 		bang.setAddress2("신동아파밀리에아파트 608동 504호");
 		bang.setOption1("방 4개, 화장실 2개");
 		bang.setOption2("없음");
-		bang.setId("서익중개사");
+		bang.setAgentId("abcd12345");
+		bang.setAgentName("서익중개사");
+		bang.setWorkDate("2017-10-13");
 		bang.setStartDate("2019-03-20");
 		bang.setEndDate("2019-04-18");
 //		cal.add(Calendar.DATE, 60); 
-		bang.setEndDate(strDate);
 		tb_bang.add(bang);
 		
 	}
@@ -214,7 +191,7 @@ public class Database {
 //		cal.add(Calendar.DATE, 60); 
 //		bang.setEndDate(strDate);
 		bang.setPrice(2.5);
-		bang.setAgentId("서익중개사");
+		bang.setAgentId("asdfg");
 		bang.setOption1("방 4개, 화장실 2개");
 		bang.setOption2("없음");
 		bang.setState("판매중");
@@ -230,7 +207,7 @@ public class Database {
 //		cal.add(Calendar.DATE, 60); 
 //		bang.setEndDate(strDate);
 		bang.setPrice(2.5);
-		bang.setAgentId("서익중개사");
+		bang.setAgentId("admin");
 		bang.setOption1("방 4개, 화장실 2개");
 		bang.setOption2("없음");
 		bang.setState("판매중");
@@ -239,7 +216,8 @@ public class Database {
 		tb_approve.add(bang);
 	}
 	public ArrayList<CartVO> tb_cart = new ArrayList<CartVO>(); // 유저 찜목록 테이블
-	public ArrayList<AgentcartVO> tb_agentcart = new ArrayList<AgentcartVO>(); // 중개인찜목록테이블																		
+	public ArrayList<AgentcartVO> tb_agentcart = new ArrayList<AgentcartVO>(); // 중개인찜목록테이블
+	public ArrayList<BangVO> tb_myapprove = new ArrayList<BangVO>(); //중개인 - 내가 올린 매물 정보
 	public ArrayList<DealVO> tb_deal = new ArrayList<DealVO>(); // 거래 테이블
 	public ArrayList<NoticeVO> tb_notice = new ArrayList<NoticeVO>(); // 공지 테이블
 	{
@@ -266,7 +244,7 @@ public class Database {
 		
 		TicketInfoVO ticketInfo = new TicketInfoVO();
 		ticketInfo.setTnum(1);
-		ticketInfo.setName("30일 이용권");
+		ticketInfo.setName("30일 등록권");
 		ticketInfo.setPrice(15900);
 		ticketInfo.setPeriod(30);
 		ticketInfo.setNumber(3);
@@ -274,7 +252,7 @@ public class Database {
 		
 		ticketInfo = new TicketInfoVO();
 		ticketInfo.setTnum(2);
-		ticketInfo.setName("60일 이용권");
+		ticketInfo.setName("60일 등록권");
 		ticketInfo.setPrice(25900);
 		ticketInfo.setPeriod(60);
 		ticketInfo.setNumber(6);
@@ -282,7 +260,7 @@ public class Database {
 		
 		ticketInfo = new TicketInfoVO();
 		ticketInfo.setTnum(3);
-		ticketInfo.setName("90일 이용권");
+		ticketInfo.setName("90일 등록권");
 		ticketInfo.setPrice(39900);
 		ticketInfo.setPeriod(90);
 		ticketInfo.setNumber(9);
@@ -291,27 +269,31 @@ public class Database {
 	public ArrayList<TicketVO> tb_ticket = new ArrayList<TicketVO>(); // 티켓 테이블
 	{
 		TicketVO ticket = new TicketVO();
+		ticket.setNum(1);
 		ticket.setAgentId("asdfg");
 		ticket.setNumber(6);
-		ticket.setName("30일 이용권");
+		ticket.setName("30일 등록권");
 		tb_ticket.add(ticket);
 		
 		ticket = new TicketVO();
+		ticket.setNum(2);
 		ticket.setAgentId("abcd1234");
 		ticket.setNumber(12);
-		ticket.setName("90일 이용권");
+		ticket.setName("90일 등록권");
 		tb_ticket.add(ticket);
 		
 		ticket = new TicketVO();
+		ticket.setNum(3);
 		ticket.setAgentId("asdfg");
 		ticket.setNumber(12);
-		ticket.setName("60일 이용권");
+		ticket.setName("60일 등록권");
 		tb_ticket.add(ticket);
 		
 		ticket = new TicketVO();
+		ticket.setNum(4);
 		ticket.setAgentId("asdfg");
 		ticket.setNumber(12);
-		ticket.setName("30일 이용권");
+		ticket.setName("30일 등록권");
 		tb_ticket.add(ticket);
 	}
 }
