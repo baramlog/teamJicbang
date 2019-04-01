@@ -93,6 +93,7 @@ public class NoticeServiceImpl implements NoticeService {
 	        System.out.println("제목: " + notice.getTitle());
 	        System.out.println("작성자: 관리자");
 	        System.out.println("등록일: " + notice.getDate());
+	        System.out.println("");
 	        System.out.println(notice.getContents());
 	        printLine();
 	    }
@@ -162,7 +163,7 @@ public class NoticeServiceImpl implements NoticeService {
 	    }
 	    @Override
 	    public void printLine() {
-	        System.out.println("——————————————————————————————");
+	        System.out.println("————————————————————————————————————————");
 	    }
 	    @Override
 	    public void printError() {

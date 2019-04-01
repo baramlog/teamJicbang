@@ -19,7 +19,7 @@ public interface AgentDao {
 	void updateBang(BangVO bang); // 방 승인요청
 	
 	ArrayList<BangVO> myApprove(boolean check);
-	
+
 	ArrayList<TicketInfoVO> selectTicketShop(); // 티켓샵 보기
 
 	void buyTicket(int num); // 티켓구입
@@ -31,4 +31,5 @@ public interface AgentDao {
 	void approveDeal(int key); // 딜이 들어온 매물 승인
 
 	void moneyUp(int dealPrice); // 딜 성사시 금액과 수수료 처리
+
 }

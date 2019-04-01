@@ -72,6 +72,11 @@ public class Database {
 		user.setId("qwert");
 		user.setPassword("1234");
 		tb_user.add(user);
+		
+		user = new UserVO();
+		user.setId("user");
+		user.setPassword("1234");
+		tb_user.add(user);
 	}
 	public ArrayList<BangVO> tb_bang = new ArrayList<BangVO>(); // 방 테이블
 
@@ -192,6 +197,7 @@ public class Database {
 //		bang.setEndDate(strDate);
 		bang.setPrice(2.5);
 		bang.setAgentId("asdfg");
+		bang.setAgentName("해솔중개사");
 		bang.setOption1("방 4개, 화장실 2개");
 		bang.setOption2("없음");
 		bang.setState("판매중");
@@ -208,6 +214,7 @@ public class Database {
 //		bang.setEndDate(strDate);
 		bang.setPrice(2.5);
 		bang.setAgentId("admin");
+		bang.setAgentName("서익중개사");
 		bang.setOption1("방 4개, 화장실 2개");
 		bang.setOption2("없음");
 		bang.setState("판매중");
@@ -235,7 +242,7 @@ public class Database {
 		notice.setAgentId("lovelysh24");
 		notice.setTitle("개인정보처리방침 개정 안내");
 //		notice.setDate(strDate);
-		notice.setContents("새로운 '개인정보처리방침'적용에 대한 사전 안내 말씀드립니다.");
+		notice.setContents("새로운 '개인정보처리방침'적용에 대한 사전 안내 말씀드립니다.\n이용자분께서는 변경되는 개인정보처리방침의 내용을 확인해주시기를 부탁드립니다.");
 		tb_notice.add(notice);
 		
 	}

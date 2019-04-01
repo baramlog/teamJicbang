@@ -4,9 +4,7 @@ import java.util.Date;
 
 public class BangVO {
 	
-	private int bangNum; //
-	private int bangkey; //방 키
-	
+	private int bangNum; //방 기본키
 	private float area; //면적
 	private String address1; //구
 	private String address2; //상세주소
@@ -22,20 +20,12 @@ public class BangVO {
 	private String workDate; //준공일자
 	private String endDate; //등록이 끝나는 날짜
 	
-	
-	public int getBangkey() {
-		return bangkey;
-	}
-	public void setBangkey(int bangkey) {
-		this.bangkey = bangkey;
-	}
 	public int getBangNum() {
 		return bangNum;
 	}
 	public void setBangNum(int bangNum) {
 		this.bangNum = bangNum;
 	}
-	
 	public String getAgentName() {
 		return agentName;
 	}
@@ -105,7 +95,6 @@ public class BangVO {
 	public String getCategory() {
 		return category;
 	}
-	
 	public void setCategory(String category) {
 		this.category = category;
 	}
