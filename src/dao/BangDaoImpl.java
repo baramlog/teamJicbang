@@ -1,33 +1,30 @@
 package dao;
 
 import vo.Database;
+import vo.Session;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 import vo.BangVO;
-import vo.Database;
-import vo.Session;
 
 public class BangDaoImpl implements BangDao {
 
 	Database database = Database.getInstance();
 	Session session = new Session();
-	BangVO bangVO = new BangVO();
-
+	
 	@Override
 	public ArrayList<BangVO> approveList() {
 		// TODO Auto-generated method stub
 		return database.tb_approve;
 	}
-
+	
 	@Override
 	public ArrayList<BangVO> myApproveList() {
 		ArrayList<BangVO> result = new ArrayList<BangVO>();
 		for(int i = 0; i < database.tb_approve.size(); i++){
 			BangVO bang = database.tb_approve.get(i);
-
+			
 			if(session.getLoginAgent().getAgentId().equals(bang.getAgentId())){
 				result.add(bang);
 			}
@@ -45,6 +42,13 @@ public class BangDaoImpl implements BangDao {
 	public void deleteBang(BangVO bang) {
 		database.tb_myapprove.add(bang);
 		database.tb_approve.remove(bang);
+		
+	}
+	
+	@Override
+	public void deleteDealBang(BangVO bang){
+//		database.tb_dealbang.add(bang);
+		database.tb_bang.remove(bang);
 	}
 	
 	@Override
@@ -71,4 +75,13 @@ public class BangDaoImpl implements BangDao {
 		}
 		return searchKey;
 	}
+
+	@Override
+	public BangVO selectBang(String key, String value) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+
 }

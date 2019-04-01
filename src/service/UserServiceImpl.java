@@ -18,6 +18,7 @@ public class UserServiceImpl implements UserService {
 	UserDao userDao = new UserDaoImpl();
 	AgentDao agentDao = new AgentDaoImpl();
 	Session session = new Session();
+	
 
 	@Override
 	public void userjoin() {
@@ -80,35 +81,32 @@ public class UserServiceImpl implements UserService {
 		ArrayList<UserVO> userList = userDao.selectUserList();
 		ArrayList<AgentVO> agentList = agentDao.selectAgentList();
 		AgentVO agent = new AgentVO();
+		
 		UserVO user = new UserVO();
 		boolean check = true;
 		String str = null;
-
+		
 		while(check){
 			System.out.print("아이디 : ");
 			String id = s.nextLine();
 			System.out.print("비번 : ");
 			String password = s.nextLine();
-
+		
 			if(id.equals("lovelysh24")){
-				System.out.println();
-				System.out.println("	┌─────────────────────────────────┐");
-				System.out.println("	│       관리자님께서 로그인하셨습니다          │");
-				System.out.println("	└─────────────────────────────────┘");
-				System.out.println();
+				System.out.println("	┌─────────────────────┐");
+				System.out.println("	│  관리자님께서 로그인하셨습니다    │");
+				System.out.println("	└─────────────────────┘");
 				str = "admin";
 				check = false;
 			}else{
 				for(int i = 0; i < userList.size(); i++){
 					if(userList.get(i).getId().equals(id)){
 						if(userList.get(i).getPassword().equals(password)){
-							user.setId(id);
-							System.out.println();
-							System.out.println("	〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
-							System.out.println("	        환영합니다. 사용자 : " + userList.get(i).getId() + "님   ");
-							System.out.println("	〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
-							System.out.println();
+							System.out.println("	┌──────────────────────────────────────────────────┐");
+							System.out.println("	│  환영합니다. 사용자 : " + userList.get(i).getId() + "님   │");
+							System.out.println("	└──────────────────────────────────────────────────┘");
 							session.setLoginUser(user);
+							System.out.println(session.getLoginUser().getId());
 							str = "user";
 							check = false;
 						}else{
@@ -118,6 +116,8 @@ public class UserServiceImpl implements UserService {
 						}
 					}else{
 						//아이디 틀림
+						
+						
 						str = null;
 						check = true;
 					}
@@ -130,11 +130,9 @@ public class UserServiceImpl implements UserService {
 					if(agentList.get(i).getAgentId().equals(id)){
 						if(agentList.get(i).getPassword().equals(password)){
 							agent.setAgentId(id);
-							System.out.println();
-							System.out.println("	〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
-							System.out.println("	        환영합니다. 중개인 : " + agentList.get(i).getAgentId() + "님                ");
-							System.out.println("	〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
-							System.out.println();
+							System.out.println("	┌─────────────────────────────────┐");
+							System.out.println("	│ 환영합니다. 중개인 : " + agentList.get(i).getAgentId() + "님  │");
+							System.out.println("	└─────────────────────────────────┘");
 							session.setLoginAgent(agent);
 							str = "agent";
 							check = false;

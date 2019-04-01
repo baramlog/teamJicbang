@@ -5,8 +5,6 @@ import java.util.Scanner;
 
 import service.AgentService;
 import service.AgentServiceImpl;
-import service.BangService;
-import service.BangServiceImpl;
 import service.NoticeService;
 import service.NoticeServiceImpl;
 import service.TicketService;
@@ -27,21 +25,21 @@ import dao.TicketDao;
 import dao.TicketDaoImpl;
 
 public class AgentController {
-	Scanner in = new Scanner(System.in);
-    AgentService agentService = new AgentServiceImpl();
-	TicketService ticketService = new TicketServiceImpl();
-	BangService bangService = new BangServiceImpl(); //++
-	boolean isContinue = true;
 	Scanner s = new Scanner(System.in);
+	DealDao dealDao = new DealDaoImpl();
 	TicketDao ticketDao = new TicketDaoImpl();
 	AgentDao agentDao = new AgentDaoImpl();
 	BangDao bangDao = new BangDaoImpl();
-	ArrayList<TicketInfoVO> ticketInfoList = ticketDao.TicketList();
 	
-	NoticeService notice = new NoticeServiceImpl();//++
-	DealDao dealDao = new DealDaoImpl();//++
-	ArrayList<DealVO> dealList = dealDao.showDeal();//++
-	Session session = new Session();//++
+	AgentService agentService = new AgentServiceImpl();
+	TicketService ticketService = new TicketServiceImpl();
+	NoticeService notice = new NoticeServiceImpl();
+	
+	ArrayList<TicketInfoVO> ticketInfoList = ticketDao.TicketList();
+	ArrayList<DealVO> dealList = dealDao.showDeal();
+	
+	Session session = new Session();
+	boolean isContinue = true;
 
 	public void agentmenu() {
 		while (isContinue) {
@@ -56,7 +54,7 @@ public class AgentController {
 			System.out.println();
 
 			System.out.print("메뉴에 해당하는 번호 입력 >");
-			int menu = Integer.parseInt(in.nextLine());
+			int menu = Integer.parseInt(s.nextLine());
 			System.out.println();
 
 			switch (menu) {
@@ -79,7 +77,6 @@ public class AgentController {
 					notice.adminMenu();
 					break;
 				case 7: // 로그아웃
-					// agentService.agentjoin();
 					isContinue = false;
 					break;
 				default:
@@ -90,8 +87,6 @@ public class AgentController {
 		}
 
 	}
-
-
 
 	public void buyTicket() {
 		for(int i = 0; i < ticketInfoList.size(); i++){
@@ -110,7 +105,7 @@ public class AgentController {
 		
 		buyTicketok(ticket);
 	}
-	
+
 	public void buyTicketok(TicketVO ticket){
 		System.out.println("결제하시겠습니까?(y/n) >");
 		String yesno = s.nextLine();
@@ -231,24 +226,70 @@ public class AgentController {
 		
 		ticketService.applyTicket(num1, num2);
 	}
-
+	
+	
 	public void dealList(){
 		AgentVO agent = session.getLoginAgent();
 		System.out.println("----------------------------"); //리스트 ++
-		for(DealVO dealInfo : dealList) {
-		//	if(session.getLoginAgent().getName().equals(dealInfo.getAgentId())){
-				System.out.println(session.getLoginAgent().getName());
-				System.out.println("중개사 : " + dealInfo.getAgentId());
-				System.out.println("매매금액 : " + dealInfo.getDealMoney());
-				System.out.println("거래인 아이디 : " + dealInfo.getUserId());
-
-		//	}else{
-		//		System.out.println("거래 내역이 없습니다.");
-		//	}
-		}
+		for(int i = 0; i < dealList.size(); i++){
+			DealVO dealInfo = dealList.get(i);
+			if(session.getLoginAgent().getAgentId().equals(dealInfo.getAgentId())){
+				System.out.println("중개사 : " + dealInfo.getAgentName());
+				System.out.println("사용자 아이디 : " + dealInfo.getUserId());
+				System.out.println("매물정보 : " + dealInfo.getAddress2());
+				System.out.println("매매금액 : " + dealInfo.getDealMoney() + "억원");
+				System.out.println("----------------------------");
+				System.out.print("해당 건에 대한 중개수수료를 처리하시겠습니까? (y/n)");
+				String yesno = s.nextLine();
+				
+				System.out.println();
+				switch(yesno){
+				case "y":
+					commission();
+					break;
+				case "n":
+					agentmenu();
+					break;
+				default:
+					agentmenu();
+					break;
+				}
+				
+			}else{
+				System.out.println("거래 내역이 없습니다.");
+			}
+		
 		System.out.println("----------------------------");
 //		System.out.println(dealList.get(0).toString());
+	
+		}
 	}
 	
-	
+	public void commission(){
+		AgentVO agent = session.getLoginAgent();
+		System.out.println("----------------------------"); 
+		
+//		for(DealVO dealInfo : dealList) {
+			for(int i = 0; i < dealList.size(); i++){
+				DealVO dealInfo = dealList.get(i);			
+				System.out.println(dealInfo.getUserId() + "님의 거래건에 대한");
+				System.out.println("중개수수료 0.5%를 가져갑니다.");
+				System.out.println("중개수수료 : " + ((int)((dealInfo.getDealMoney() * 0.005 * 10000)+ 0.005) * 1000.0) / 1000.0 + "만원");
+				System.out.println("");
+				System.out.println("직방수수료 10%를 전달합니다.");
+				System.out.println("직방수수료 : " + ((int)((dealInfo.getDealMoney() * 0.005 * 10000)+ 0.005) * 1000.0) / 1000.0  * 0.1 + "만원");
+				System.out.println("");
+				System.out.println("해당 거래가 완료되었습니다.");
+				dealDao.deleteDealList(dealInfo);
+				break;
+				
+			}
+		
+			/*if(dealInfo == null){
+				System.out.println("거래 내역이 없습니다.");
+			}*/
+		
+		System.out.println("----------------------------"); 
+	}
+
 }

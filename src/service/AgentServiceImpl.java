@@ -1,6 +1,5 @@
 package service;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -8,62 +7,40 @@ import java.util.regex.Pattern;
 import vo.AgentVO;
 import vo.BangVO;
 import vo.Session;
-import vo.TicketInfoVO;
-import vo.TicketVO;
-import vo.UserVO;
 import dao.AgentDao;
 import dao.AgentDaoImpl;
 import dao.BangDao;
 import dao.BangDaoImpl;
-import dao.TicketDao;
-import dao.TicketDaoImpl;
-import dao.UserDao;
-import dao.UserDaoImpl;
 
 public class AgentServiceImpl implements AgentService {
 	AgentDao agentDao = new AgentDaoImpl();
 	BangDao bangDao = new BangDaoImpl();
 	Scanner s = new Scanner(System.in);
 	Session session = new Session();
-	UserDao userDao = new UserDaoImpl();
-	
 
 	@Override
 	public void agentjoin() {
 		
 		AgentVO agent = new AgentVO();
-		UserVO user = new UserVO();
-		
-		System.out.print("아이디(5~13자리): ");
-		while (true) {
+	
+		System.out.println("아이디(5~13자리) : ");
+		while(true){
 			String id = s.nextLine();
-			
-			user.setId(id);
-			agent.setAgentId(id);
-			UserVO userCheck = userDao.selectUser("ID", user.getId());
-			AgentVO agentCheck = agentDao.selectAgent("ID", agent.getAgentId());
-			if(userCheck == null && agentCheck == null){
-				String str1 = id;
-				String pattern1 = "\\w\\S{4,13}";
-				Pattern p1 = Pattern.compile(pattern1);
-				Matcher m1 = p1.matcher(str1);
-				if (m1.matches()) {
-					agent.setAgentId(id);
-					break;
-				}else{
-					System.out.println("주어진 조건에 맞게 입력해주세요");
-					System.out.print("아이디를 5~13자 사이로 다시 입력해주세요 >>");
-				}
+			String pattern1 = "\\w\\S{4,13}";
+			Pattern p1 = Pattern.compile(pattern1);
+			Matcher m1 = p1.matcher(id);
+			if(m1.matches()){
+				agent.setAgentId(id);
+				break;
 			}else{
-				System.out.println("!!!!!!!!아이디 중복!!!!!!!!");
-				System.out.print("아이디를 5~13자 사이로 다시 입력해주세요 >> ");
+				System.out.println("아이디를 5~13자 사이로 다시 입력해주세요 >> ");
 			}
 		}
 		
-		System.out.print("비밀번호(4~6자리) : ");
+		System.out.println("비밀번호(4~6자리) : ");
 		while(true){
 			String password = s.nextLine();
-			String pattern1 = "\\w\\S{3,6}";
+			String pattern1 = "\\w\\S{4,6}";
 			Pattern p1 = Pattern.compile(pattern1);
 			Matcher m1 = p1.matcher(password);
 			if(m1.matches()){
@@ -74,32 +51,25 @@ public class AgentServiceImpl implements AgentService {
 			}
 		}
 		
-		System.out.print("중개사 이름 : ");
+		System.out.println("중개사 이름 : ");
 		String name = s.nextLine();
 		agent.setName(name);
 		
-		System.out.print("핸드폰번호('-'없이 작성) : ");
+		System.out.println("핸드폰번호('-'없이 작성) : ");
 		while(true){
 			String phone = s.nextLine();
-			agent.setPhone(phone);
-			AgentVO agentCheck = agentDao.selectAgent("PHONE", agent.getPhone());
-			if(agentCheck == null){
-				String pattern1 = "^0\\d{1,3}\\d{3,4}\\d{4}";
-				Pattern p1 = Pattern.compile(pattern1);
-				Matcher m1 = p1.matcher(phone);
-				if(m1.matches()){
-//					agent.setPhone(phone);
-					break;
-				}else{
-					System.out.print("핸드폰번호('-'없이 작성)를 다시 입력해주세요 >> ");
-				}
+			String pattern1 = "^0\\d{1,3}\\d{3,4}\\d{4}";
+			Pattern p1 = Pattern.compile(pattern1);
+			Matcher m1 = p1.matcher(phone);
+			if(m1.matches()){
+				agent.setPhone(phone);
+				break;
 			}else{
-				System.out.println("!!!!!!!핸드폰 번호 중복!!!!!!!");
-				System.out.print("핸드폰번호('-'없이 작성)를 다시 입력해주세요 >> ");
+				System.out.println("핸드폰번호('-'없이 작성)를 다시 입력해주세요 >> ");
 			}
 		}
 		
-		System.out.print("이메일(5~13자리) : ");
+		System.out.println("이메일(5~13자리) : ");
 		while(true){
 			String email = s.nextLine();
 			String pattern1 = "\\w\\S{4,13}@[a-zA-Z]+\\.(?i)(com|net|org|([a-z]{2}\\.kr))$";
@@ -113,13 +83,24 @@ public class AgentServiceImpl implements AgentService {
 			}
 		}
 		
-	    System.out.println("정상적으로 가입 되었습니다.");
-	    agentDao.insertAgent(agent);
+		AgentVO agentCheck1 = agentDao.selectAgent("ID", agent.getAgentId());
+	    AgentVO agentCheck2 = agentDao.selectAgent("PHONE", agent.getPhone());
+	    
+	      if(agentCheck1 == null) {
+	    	  if(agentCheck2 == null){
+	    		  agentDao.insertAgent(agent);
+	    	  }else{
+	    		  System.out.println("핸드폰번호 중복입니다.");
+	    	  }
+	      }else{
+	    	  System.out.println("아이디 중복입니다");
+	      }
 	}
 
 	
 	@Override
 	public void writeBang(){ //방 등록 -agent
+		Scanner s = new Scanner(System.in);
 		
 		System.out.println();
 		System.out.print("면적 : ");
@@ -154,7 +135,6 @@ public class AgentServiceImpl implements AgentService {
 		
 		BangVO bang = new BangVO();
 		bang.setAgentId(session.getLoginAgent().getAgentId());
-		bang.setAgentName(session.getLoginAgent().getName());
 		bang.setArea(area);
 		bang.setAddress1(address1);
 		bang.setAddress2(address2);

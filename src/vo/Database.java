@@ -15,27 +15,7 @@ public class Database {
 		if (instance == null) {
 			instance = new Database();
 		}
-		setPrimaryKey(instance);
 		return instance;
-	}
-
-	public static void setPrimaryKey(Database db) {
-		//방 리스트 키 설정
-		int idx = 1;
-		for (BangVO item : db.tb_bang)
-			item.setBangkey(idx++);
-
-		idx = 1;
-		for (NoticeVO item : db.tb_notice)
-			item.setNum(idx++);
-
-		idx = 1;
-		for (TicketInfoVO item : db.tb_ticketinfo)
-			item.setTnum(idx++);
-
-		idx = 1;
-		for (TicketVO item : db.tb_ticket)
-			item.setNum(idx++);
 	}
 
 	public ArrayList<AgentVO> tb_agent = new ArrayList<AgentVO>(); // 중개인 테이블
@@ -84,6 +64,26 @@ public class Database {
 		agent.setEmail("lovelysh24@gmail.com");
 		agent.setLevel(1);
 		tb_agent.add(agent);
+
+		agent = new AgentVO();
+		agent.setAgentId("admin");
+		agent.setPassword("1234");
+		agent.setName("관리자");
+		agent.setPhone("010-2738-8924");
+		agent.setEmail("lovelysh24@gmail.com");
+		agent.setLevel(9);
+		tb_agent.add(agent);
+
+		agent = new AgentVO();
+		agent.setAgentId("agent");
+		agent.setPassword("1234");
+		agent.setName("test");
+		agent.setPhone("010-2738-8924");
+		agent.setEmail("lovelysh24@gmail.com");
+		agent.setLevel(1);
+		tb_agent.add(agent);
+
+
 	}
 	
 	public ArrayList<UserVO> tb_user = new ArrayList<UserVO>();// 유저 테이블
@@ -92,7 +92,7 @@ public class Database {
 		user.setId("qwert");
 		user.setPassword("1234");
 		tb_user.add(user);
-		
+
 		user = new UserVO();
 		user.setId("user");
 		user.setPassword("1234");
@@ -101,7 +101,6 @@ public class Database {
 	public ArrayList<BangVO> tb_bang = new ArrayList<BangVO>(); // 방 테이블
 
 	{
-		
 		BangVO bang = new BangVO();
 		bang.setPrice(5.2);
 		bang.setCategory("매매");
@@ -216,7 +215,7 @@ public class Database {
 //		cal.add(Calendar.DATE, 60); 
 //		bang.setEndDate(strDate);
 		bang.setPrice(2.5);
-		bang.setAgentId("asdfg");
+		bang.setAgentId("서익중개사");
 		bang.setOption1("방 4개, 화장실 2개");
 		bang.setOption2("없음");
 		bang.setState("판매중");
@@ -232,7 +231,7 @@ public class Database {
 //		cal.add(Calendar.DATE, 60); 
 //		bang.setEndDate(strDate);
 		bang.setPrice(2.5);
-		bang.setAgentId("admin");
+		bang.setAgentId("서익중개사");
 		bang.setOption1("방 4개, 화장실 2개");
 		bang.setOption2("없음");
 		bang.setState("판매중");
@@ -240,7 +239,7 @@ public class Database {
 		bang.setArea(134);
 		tb_approve.add(bang);
 	}
-	public ArrayList<CartVO> tb_cart = new ArrayList<CartVO>(); // 유저 찜목록 테이블
+	public ArrayList<BangVO> tb_cart = new ArrayList<BangVO>(); // 유저 찜목록 테이블
 	public ArrayList<AgentcartVO> tb_agentcart = new ArrayList<AgentcartVO>(); // 중개인찜목록테이블
 	public ArrayList<BangVO> tb_myapprove = new ArrayList<BangVO>(); //중개인 - 내가 올린 매물 정보
 	public ArrayList<DealVO> tb_deal = new ArrayList<DealVO>(); // 거래 테이블
@@ -290,7 +289,7 @@ public class Database {
 		ticketInfo.setPeriod(90);
 		ticketInfo.setNumber(9);
 		tb_ticketinfo.add(ticketInfo);
-	}
+		}
 	public ArrayList<TicketVO> tb_ticket = new ArrayList<TicketVO>(); // 티켓 테이블
 	{
 		TicketVO ticket = new TicketVO();

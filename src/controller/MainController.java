@@ -2,12 +2,8 @@ package controller;
 
 import java.util.Scanner;
 
-import service.AdminService;
-import service.AdminServiceImpl;
 import service.AgentService;
 import service.AgentServiceImpl;
-import service.BangService;
-import service.BangServiceImpl;
 import service.NoticeService;
 import service.NoticeServiceImpl;
 import service.UserService;
@@ -16,7 +12,6 @@ import vo.Session;
 
 public class MainController {
 	
-
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		/*
@@ -27,11 +22,10 @@ public class MainController {
 		
 		Scanner in = new Scanner(System.in);
 		boolean isContinue = true;
-		
 		while (isContinue) {
 				System.out.println("                                         ");
 				System.out.println("			┌────────────────────────────┐");
-				System.out.println("			│            직방            │");
+				System.out.println("			│            직방                              │");
 				System.out.println("			└────────────────────────────┘");
 				System.out.println();
 			System.out.print("1. 로그인" + "\t");
@@ -43,12 +37,7 @@ public class MainController {
 			System.out.print("메뉴에 해당하는 번호 입력>");
 
 			int menu = Integer.parseInt(in.nextLine());
-			System.out.println();
-
-			UserService userService = new UserServiceImpl();
-			AgentService agentService = new AgentServiceImpl();
-			AdminService adminService = new AdminServiceImpl();
-			BangService bangService = new BangServiceImpl();
+			
 			BangController bcon = new BangController();
 			NoticeService notice = new NoticeServiceImpl();
 			Session session = new Session();
@@ -84,6 +73,7 @@ public class MainController {
 		AdminController adminController = new AdminController();
 		AgentController agentController = new AgentController();
 		UserController userController = new UserController();
+		Session session = new Session();
 
 		result = userService.usercheck();
 		if(result == "user"){
@@ -94,8 +84,6 @@ public class MainController {
 			adminController.adminmenu();
 		}
 	}
-	
-	
 	
 	public static void join() { //회원가입
 		String result;

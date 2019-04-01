@@ -50,10 +50,10 @@ public class TicketServiceImpl implements TicketService {
 	@Override
 	public TicketVO ticketPrint(int num1, int num2) {
 		String id = session.getLoginAgent().getAgentId();
-		TicketDao ticketDao = new TicketDaoImpl();
-		ArrayList<TicketVO> ticketlist = ticketDao.showTicket();
-		TicketVO ticket = new TicketVO();
+		TicketDao ticketDao = new TicketDaoImpl();		TicketVO ticket = new TicketVO();
 		String name = null;
+		ArrayList<TicketVO> ticketlist = ticketDao.showTicket();
+
 		int number = 0;
 		int price = 0;
 		

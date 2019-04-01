@@ -19,7 +19,8 @@ public class DealDaoImpl implements DealDao {
 	@Override
 	public void insertDeal(DealVO deal) {
 		database.tb_deal.add(deal);
-
+//		database.tb_dealbang1.add(deal);
+		
 	}
 
 	@Override

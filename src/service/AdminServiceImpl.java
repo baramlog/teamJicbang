@@ -32,40 +32,37 @@ public class AdminServiceImpl implements AdminService {
 	public void AdminOKList() {
 		ArrayList<BangVO> approveList = bangDao.approveList();
 		int idx = 1;
-		if(approveList.isEmpty()){
-			System.out.println("!!!!!!!!매물승인요청이 없습니다.!!!!!!!!");
-		}else{
-			System.out.println("------------승인요청리스트--------------");
-			for(BangVO bang : approveList){
-				bang.setNum(idx++);
-				System.out.println("No. " + bang.getNum());
-				System.out.println("중개소 이름 : " + bang.getAgentName());
-				System.out.println("구, 동 : " + bang.getAddress1());
-				System.out.println("상세 주소 : " + bang.getAddress2());
-				System.out.println("----------------------------------");
-			}
-			
-			System.out.println("1.매물등록<승인>	2.매물등록<반려>");
-			System.out.print("메뉴에 해당하는 번호 입력 > ");
-			int inp = Integer.parseInt(in.nextLine());
-			switch(inp){
+		System.out.println("------------승인요청리스트--------------");
+		for(BangVO bang : approveList){
+			bang.setNum(idx++);
+			System.out.println("No. " + bang.getNum());
+			System.out.println("중개소 이름 : " + bang.getAgentName());
+			System.out.println("구, 동 : " + bang.getAddress1());
+			System.out.println("상세 주소 : " + bang.getAddress2());
+			System.out.println("----------------------------------");
+		}
+
+		System.out.println("1.매물등록<승인>   2.매물등록<반려>");
+		System.out.print("메뉴에 해당하는 번호 입력 > ");
+		int inp = Integer.parseInt(in.nextLine());
+		switch(inp){
 			case 1 :
 				AdminYes();
 				break;
 			case 2 :
 				AdminNo();
 				break;
-			}
 		}
+
 	}
 
 	@Override
 	public void AdminYes() {
 		System.out.print("승인할 방의 번호를 입력해주세요 > ");
 		int inp = Integer.parseInt(in.nextLine());
-		
+
 		ArrayList<BangVO> approveList = bangDao.approveList();
-		
+
 		for(int i = 0; i < approveList.size(); i++){
 			if(approveList.get(i).getNum() == inp){
 				BangVO bang = new BangVO();
@@ -73,39 +70,28 @@ public class AdminServiceImpl implements AdminService {
 				bangDao.insertBang(bang);
 			}
 		}
-		
+
 		System.out.println("매물요청리스트에서 " + inp + "번째 매물이 승인되었습니다.");
-		
+
 	}
 
 	@Override
 	public void AdminNo() {
-		System.out.print("반려할 방의 번호를 입력해주세요 > ");
+		System.out.println("반려할 방의 번호를 입력해주세요 > ");
 		int inp = Integer.parseInt(in.nextLine());
-		
-		ArrayList<BangVO> approveList1 = bangDao.approveList();
-		
-		ArrayList<BangVO> approveList2 = agentDao.myApprove(false);
-//		for(ApproveVO approveList3 : approveList1){
-//			
-//		}
-		for(int i = 0; i < approveList2.size(); i++){
-			if(approveList2.get(i).getBangNum() == inp){
-				BangVO approve = new BangVO();
-				approve = approveList2.get(i);
-				bangDao.deleteBang(approve);
-			}
-		}
-		for(int i = 0; i < approveList1.size(); i++){
-			if(approveList1.get(i).getNum() == inp){
+
+		ArrayList<BangVO> approveList = bangDao.approveList();
+
+		for(int i = 0; i < approveList.size(); i++){
+			if(approveList.get(i).getNum() == inp){
 				BangVO bang = new BangVO();
-				bang = approveList1.get(i);
+				bang = approveList.get(i);
 				bangDao.deleteBang(bang);
 			}
 		}
-		
+
 		System.out.println("매물요청리스트에서 " + inp + "번째 매물이 반려되었습니다.");
-		
+
 	}
 
 	@Override
