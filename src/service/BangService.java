@@ -10,4 +10,8 @@ public interface BangService {
 	void purchase();
 	void JJimList();
 	void JJimLoginCheck();
+	void setDate(BangVO bang, int plusDay);
+	
 }
+
+

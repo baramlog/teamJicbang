@@ -4,7 +4,9 @@ import dao.NoticeDao;
 import dao.NoticeDaoImpl;
 import vo.NoticeVO;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -89,10 +91,12 @@ public class NoticeServiceImpl implements NoticeService {
 
 	    @Override
 	    public void printDetail(NoticeVO notice) {
+	    	SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	    	String date = f.format(notice.getDate());
 	        printLine();
 	        System.out.println("제목: " + notice.getTitle());
 	        System.out.println("작성자: 관리자");
-	        System.out.println("등록일: " + notice.getDate());
+	        System.out.println("등록일: " + date);
 	        System.out.println(notice.getContents());
 	        printLine();
 	    }
@@ -128,6 +132,7 @@ public class NoticeServiceImpl implements NoticeService {
 
 	        notice.setTitle(title);
 	        notice.setContents(context);
+	        notice.setDate(new Date());
 	        //등록
 	        noticeDao.insertNotice(notice);
 

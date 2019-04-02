@@ -17,12 +17,8 @@ import dao.UserDaoImpl;
 
 public class AdminController {
 	Scanner in = new Scanner(System.in);
-//	UserService userService = new UserServiceImpl();
-//	AgentService agentService = new AgentServiceImpl();
 	AdminService adminService = new AdminServiceImpl();
 	NoticeService notice = new NoticeServiceImpl();
-//	AgentDao agentDao = new AgentDaoImpl();
-//	UserDao userDao = new UserDaoImpl();
 	boolean isContinue = true;
 
 	public void adminmenu() {
@@ -43,7 +39,6 @@ public class AdminController {
 				notice.adminMenu();
 				break;
 			case 3: // 로그아웃
-				// agentService.agentjoin();
 				isContinue = false;
 				break;
 			}

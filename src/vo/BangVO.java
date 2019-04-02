@@ -21,8 +21,7 @@ public class BangVO {
 	private String startDate; //등록일자
 	private String workDate; //준공일자
 	private String endDate; //등록이 끝나는 날짜
-	
-	
+		
 	public int getBangkey() {
 		return bangkey;
 	}

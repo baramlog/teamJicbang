@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 import service.AgentService;
 import service.AgentServiceImpl;
+import service.BangService;
+import service.BangServiceImpl;
 import service.NoticeService;
 import service.NoticeServiceImpl;
 import service.TicketService;
@@ -26,18 +28,20 @@ import dao.TicketDaoImpl;
 
 public class AgentController {
 	Scanner s = new Scanner(System.in);
-	DealDao dealDao = new DealDaoImpl();
+	
 	TicketDao ticketDao = new TicketDaoImpl();
 	AgentDao agentDao = new AgentDaoImpl();
 	BangDao bangDao = new BangDaoImpl();
+	DealDao dealDao = new DealDaoImpl();
 	
+	NoticeService notice = new NoticeServiceImpl();
 	AgentService agentService = new AgentServiceImpl();
 	TicketService ticketService = new TicketServiceImpl();
-	NoticeService notice = new NoticeServiceImpl();
+	BangService bangService = new BangServiceImpl(); 
 	
 	ArrayList<TicketInfoVO> ticketInfoList = ticketDao.TicketList();
 	ArrayList<DealVO> dealList = dealDao.showDeal();
-	
+	ArrayList<AgentVO> agentList = agentDao.selectAgentList();
 	Session session = new Session();
 	boolean isContinue = true;
 
@@ -74,7 +78,7 @@ public class AgentController {
 					dealList();
 					break;
 				case 6: // 공지사항
-					notice.adminMenu();
+					notice.viewList();
 					break;
 				case 7: // 로그아웃
 					isContinue = false;
@@ -105,7 +109,7 @@ public class AgentController {
 		
 		buyTicketok(ticket);
 	}
-
+	
 	public void buyTicketok(TicketVO ticket){
 		System.out.println("결제하시겠습니까?(y/n) >");
 		String yesno = s.nextLine();
@@ -114,13 +118,15 @@ public class AgentController {
 				ticketService.insertTicket(ticket);
 				System.out.println("결제가 성공적으로 완료됐습니다.");
 				agentmenu();
-
+				break;
 			case "n" :
 				System.out.println("결제가 취소됐습니다.");
 				agentmenu();
+				break;
 			default:
 				System.out.println("*** 해당 값만 입력해주세요. ***");
 				buyTicketok(ticket);
+				break;
 			
 
 		}
@@ -223,8 +229,10 @@ public class AgentController {
 		int num1 = Integer.parseInt(s.nextLine());
 		System.out.print("몇 개를 적용시키겠습니까? >");
 		int num2 = Integer.parseInt(s.nextLine());
+		System.out.print("어느 매물에 적용시키겠습니까? >");
+		int num3 = Integer.parseInt(s.nextLine());
 		
-		ticketService.applyTicket(num1, num2);
+		ticketService.applyTicket(num1, num2, num3);
 	}
 	
 	
@@ -261,7 +269,6 @@ public class AgentController {
 		
 		System.out.println("----------------------------");
 //		System.out.println(dealList.get(0).toString());
-	
 		}
 	}
 	
@@ -269,7 +276,6 @@ public class AgentController {
 		AgentVO agent = session.getLoginAgent();
 		System.out.println("----------------------------"); 
 		
-//		for(DealVO dealInfo : dealList) {
 			for(int i = 0; i < dealList.size(); i++){
 				DealVO dealInfo = dealList.get(i);			
 				System.out.println(dealInfo.getUserId() + "님의 거래건에 대한");
@@ -282,14 +288,7 @@ public class AgentController {
 				System.out.println("해당 거래가 완료되었습니다.");
 				dealDao.deleteDealList(dealInfo);
 				break;
-				
 			}
-		
-			/*if(dealInfo == null){
-				System.out.println("거래 내역이 없습니다.");
-			}*/
-		
 		System.out.println("----------------------------"); 
 	}
-
 }

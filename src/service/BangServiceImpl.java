@@ -1,10 +1,13 @@
 package service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.Locale.Category;
 
 import vo.BangVO;
 import vo.DealVO;
@@ -17,11 +20,14 @@ import dao.BangDao;
 import dao.BangDaoImpl;
 import dao.CartDao;
 import dao.CartDaoImpl;
+import dao.DealDao;
+import dao.DealDaoImpl;
 
 public class BangServiceImpl implements BangService {
 
 	BangDao bangDao = new BangDaoImpl();
 	CartDao cartDao = new CartDaoImpl();
+	DealDao dealDao = new DealDaoImpl();
 	ArrayList<BangVO> bangList = bangDao.selectList();
 	Scanner s = new Scanner(System.in);
 	ArrayList<BangVO> searchResult = new ArrayList<BangVO>();
@@ -30,9 +36,10 @@ public class BangServiceImpl implements BangService {
 	DealVO deal = new DealVO();
 	ArrayList<DealVO> dealList = new ArrayList<DealVO>();
 	ArrayList<BangVO> cartList = cartDao.selectCart();
+	UserBookMark userbook = new UserBookMarkImpl();
 	int printNum;
 	String price;
-	Session session = new Session();
+	
 	BangVO JJimCheck = new BangVO();
 
 	@Override
@@ -114,6 +121,7 @@ public class BangServiceImpl implements BangService {
 		BangController bangcon = new BangController();
 		MainController maincon = new MainController();
 		UserController usercon = new UserController();
+		Session session = new Session();
 
 		boolean isContinue = true;
 		while (isContinue) {
@@ -167,7 +175,7 @@ public class BangServiceImpl implements BangService {
 					}
 				}
 				System.out.println("-------------------------------------");
-				System.out.println("\t" + price + "\t   /     " + bang.getCategory() + "(" + bang.getState() + ")");
+				System.out.println("\t" + price + "\t   /     " + bang.getCategory());
 				System.out.println("주소: " + bang.getAddress1() + " " + bang.getAddress2());
 				System.out.println("면적: " + bang.getArea());
 				System.out.println("옵션: " + bang.getOption1() + "    /    " + bang.getOption2());
@@ -182,35 +190,66 @@ public class BangServiceImpl implements BangService {
 				switch (Integer.parseInt(cmd5)) {
 				case 1:
 					// JJimLoginCheck();
-					Session session = new Session();
 					// ArrayList<BangVO> bangCheck = cartDao.selectCart();
-
-					if (session.getLoginUser() == null) {
+					if(session.getLoginUser() != null){
+						JJimCheck = cartDao.selectBang(bang.getBangkey());
+						if (JJimCheck != null) {
+							System.out.println("중복되었습니다");
+						} else {
+							cartDao.insertCart(bang);
+							System.out.println("***** 찜 목록에 추가되었습니다 *****");
+						}
+					}
+					else if (session.getLoginUser() == null) {
 						System.out.println("로그인을 하셔야합니다.");
 						System.out.print("로그인 하시겠습니까? (y/n)");
 						String answer = s.nextLine();
 						if (answer.equalsIgnoreCase("y")) {
 							maincon.main(null);
 						} else if (answer.equalsIgnoreCase("n")) {
-							usercon.usermenu();
+							bangcon.bangSelect();
 						}
 
-					} else
-
-						JJimCheck = cartDao.selectBang(bang.getBangkey());
-					if (JJimCheck != null) {
-						System.out.println("중복되었습니다");
-					} else {
-						cartDao.insertCart(bang);
-						System.out.println("***** 찜 목록에 추가되었습니다 *****");
-					}
+					} 
+//					else
+//						JJimCheck = cartDao.selectBang(bang.getBangkey());
+//					if (JJimCheck != null) {
+//						System.out.println("중복되었습니다");
+//					} else {
+//						cartDao.insertCart(bang);
+//						System.out.println("***** 찜 목록에 추가되었습니다 *****");
+//					}
 					new UserController().usermenu();
 					break;
 				case 2:
-
+					if (session.getLoginUser() != null) {
+		                  UserBookMark bookmark = new UserBookMarkImpl();
+		                  bookmark.addBookMark(bang.getAgentId());
+		               } else {
+		            	   System.out.println("로그인을 하셔야합니다.");
+							System.out.print("로그인 하시겠습니까? (y/n)");
+							String answer = s.nextLine();
+							if (answer.equalsIgnoreCase("y")) {
+								maincon.main(null);
+							} else if (answer.equalsIgnoreCase("n")) {
+								bangcon.bangSelect();
+							}
+					} 
 					break;
 				case 3:
-					purchase();
+					if (session.getLoginUser() != null) {
+						purchase();
+					}
+					else if(session.getLoginUser() == null){
+		            	   System.out.println("로그인을 하셔야합니다.");
+							System.out.print("로그인 하시겠습니까? (y/n)");
+							String answer = s.nextLine();
+							if (answer.equalsIgnoreCase("y")) {
+								maincon.main(null);
+							} else if (answer.equalsIgnoreCase("n")) {
+								bangcon.bangSelect();
+							}
+					}
 					isContinue = false;
 					break;
 				case 4:
@@ -239,52 +278,77 @@ public class BangServiceImpl implements BangService {
 	}
 
 	@Override
-	public void purchase() {
-		// UserVO user = session.getLoginUser();
-		BangVO bang = matchIndexList.get(printNum);
+	   public void purchase() {
+		Session session = new Session();
+	      UserVO user = session.getLoginUser();
 
-		/*
-		 * String id = session.getLoginUser().getId(); String agentId =
-		 * bang.getAgentId(); deal.setUserId(id); deal.setAgentId(agentId);
-		 */
+	      
+//	      System.out.println(user.getId());   //유저 확인할라구 출력해봤음
+//	      System.out.println(bang.getAgentId());  //중개사이름 확인할라구 출력해봤음
+	      
+	         System.out.println("----------------------------");
+	         System.out.print("선택하신 매물을 구매하시겠습니까?(y/n) > ");
+	         String cmd7 = s.nextLine();
+	         switch (cmd7) {
+	         case "y":
+	            System.out.println("");
+	            System.out.println("매물 거래를 진행하겠습니다.");
+	            
+	            BangVO bang = matchIndexList.get(printNum);
+	            boolean check = true;
+	            System.out.println("----------------------------");
+	            while(check){
+	               System.out.print("거래할 금액을 적어주세요.(단위: 억)");
+	               System.out.println("");
+	               double cmd8 = s.nextDouble();
+	               DealVO deal = new DealVO();
+	               
+	                  deal.setUserId(user.getId());
+	                  deal.setAgentId(bang.getAgentId());
+	                  deal.setAgentName(bang.getAgentName());
+	                  deal.setAddress2(bang.getAddress2());
+	                  deal.setAddress1(bang.getAddress1());
+	                  deal.setArea(bang.getArea());
+	                  deal.setOption1(bang.getOption1());
+	                  deal.setOption2(bang.getOption2());
+	                  deal.setCategory(bang.getCategory());
+	                  deal.setDealMoney(cmd8);
+	               
+	               
+	               dealDao.insertDeal(deal);
+	               System.out.println("매매 " + bang.getPrice() + "억 원"); //방 금액 맞는지 출력해봤어요.
+	               System.out.println("거래액: "  + cmd8 + "억 원");
+	               System.out.println("----------------------------");
+	               
+	               if(cmd8 >= bang.getPrice() * 0.9){
+	                  System.out.println("");
+	                  System.out.println("거래가 성사되었습니다.");
+	                  System.out.println("중개인에게 " + cmd8 + "억원이 전달되었습니다.");
+	                  System.out.println("");
+	                  System.out.println("****축축축 내집장만 축하합니다! ****");
+	                  System.out.println("좋은 일 가득한 집이 되기를 바랍니다 ^^");
+	                  System.out.println("");
+	                  System.out.println("----------------------------");
+	                  
+	                  
+	                  check = false;
+	                  break;
+	               }else{
+	                  System.out.println("제시한 금액과 상이하여 중개인이 조정을 원합니다. 다시 거래액을 적어주세요. ");
+	               }
+	            }
+	            bangDao.deleteDealBang(bang);
+	            break;
+	         case "n":
+	            break;
+	         default:
+	            System.out.println();
+	            System.out.println("y/n 중 하나를 선택해주세요.");
+	            System.out.println();
+	            break;
+	         }
+	   }
 
-		System.out.print("선택하신 매물을 구매하시겠습니까?(y/n) > ");
-		String cmd7 = s.nextLine();
-		switch (cmd7) {
-		case "y":
-			System.out.println("매물 거래를 진행하겠습니다.");
-
-			boolean check = true;
-			while (check) {
-				System.out.print("거래액을 제시해주십시오.(단위: 억)(일단 매물금액의 90%금액으로 정했어요.)");
-				double cmd8 = Double.parseDouble(s.nextLine());
-
-				deal.setDealMoney(cmd8);
-				System.out.println(cmd8 + "억");
-				System.out.println(bang.getPrice());
-				// System.out.println("입력제안:"+bang.getPrice() * 0.9);
-
-				if (cmd8 == bang.getPrice() * 0.9) {
-
-					System.out.println("거래가 성사되었습니다.");
-					System.out.println("중개인에게 " + cmd8 + "억원이 전달되었습니다.");
-					System.out.println("내집장만  축하합니다! 좋은 일 가득한 집이 되기를 바랍니다 ^^");
-					check = false;
-					break;
-				} else {
-					System.out.println("거래액을 조정하여 다시 제시해주십시오");
-				}
-			}
-			break;
-		case "n":
-			break;
-		default:
-			System.out.println();
-			System.out.println("y/n 중 하나를 선택해주세요.");
-			System.out.println();
-			break;
-		}
-	}
 
 	@Override
 	public void JJimLoginCheck() {
@@ -297,6 +361,10 @@ public class BangServiceImpl implements BangService {
 
 	@Override
 	public void JJimList() {
+		if(cartList.isEmpty()){
+			System.out.println("추가하세요");
+			return;
+		}
 		for (int i = 0; i < cartList.size(); i++) {
 			if ((int) cartList.get(i).getPrice() == 0) {
 				price = (int) (cartList.get(i).getPrice() * 10) + "천만원";
@@ -309,8 +377,7 @@ public class BangServiceImpl implements BangService {
 				}
 			}
 			System.out.println("-------------------------------------");
-			System.out.println("\t" + price + "\t   /     " + cartList.get(i).getCategory() + "("
-					+ cartList.get(i).getState() + ")");
+			System.out.println("\t" + price + "\t   /     " + cartList.get(i).getCategory());
 			System.out.println("주소: " + cartList.get(i).getAddress1() + " " + cartList.get(i).getAddress2());
 			System.out.println("면적: " + cartList.get(i).getArea());
 			System.out.println("옵션: " + cartList.get(i).getOption1() + "    /    " + cartList.get(i).getOption2());
@@ -320,4 +387,25 @@ public class BangServiceImpl implements BangService {
 		}
 
 	}
+
+	@Override
+	   public void setDate(BangVO bang, int plusDay) {
+	         SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+	           Calendar cal = Calendar.getInstance();
+	           Date today = new Date();
+	           String startDate = date.format(today);
+
+	           Date originDate = null;
+	           try {
+	               originDate = date.parse(bang.getEndDate());
+	           } catch (ParseException e) {
+	               e.printStackTrace();
+	           }
+	           cal.setTime(originDate);
+	           cal.add(Calendar.DATE, plusDay);
+	           bang.setStartDate(startDate);
+	           bang.setEndDate(date.format(cal.getTime()));
+	           System.out.println(bang.getEndDate());
+	   }
+
 }

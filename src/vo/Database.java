@@ -162,7 +162,7 @@ public class Database {
 		bang.setAddress2("센트럴자이아파트 107동 806호");
 		bang.setOption1("방 3개, 화장실 2개");
 		bang.setOption2("서대전네거리역 근처");
-		bang.setAgentName("abcd1234");
+		bang.setAgentId("abcd1234");
 		bang.setAgentName("재권중개사");
 		bang.setWorkDate("2002-02-04");
 		bang.setStartDate("2019-03-20");
@@ -211,11 +211,8 @@ public class Database {
 		bang.setAddress1("동구 홍도동");
 		bang.setAddress2("신동아파밀리에아파트 608동 504호");
 		bang.setWorkDate("2015.09.11");
-//		bang.setStartDate(startDate);
-//		cal.add(Calendar.DATE, 60); 
-//		bang.setEndDate(strDate);
 		bang.setPrice(2.5);
-		bang.setAgentId("서익중개사");
+		bang.setAgentName("서익중개사");
 		bang.setOption1("방 4개, 화장실 2개");
 		bang.setOption2("없음");
 		bang.setState("판매중");
@@ -227,11 +224,8 @@ public class Database {
 		bang.setAddress1("동구 용전동");
 		bang.setAddress2("한숲아파트 308동 1201호");
 		bang.setWorkDate("2015.09.11");
-//		bang.setStartDate(startDate);
-//		cal.add(Calendar.DATE, 60); 
-//		bang.setEndDate(strDate);
 		bang.setPrice(2.5);
-		bang.setAgentId("서익중개사");
+		bang.setAgentName("재권중개사");
 		bang.setOption1("방 4개, 화장실 2개");
 		bang.setOption2("없음");
 		bang.setState("판매중");
@@ -250,7 +244,7 @@ public class Database {
 		notice.setNum(1);
 		notice.setAgentId("lovelysh24");
 		notice.setTitle("급매물 올라왔습니다.");
-//		notice.setDate(strDate);
+		notice.setDate(new Date());
 		notice.setContents("둔산동 크로바아파트 매매가가 상승하였습니다.");
 		tb_notice.add(notice);
 		
@@ -258,7 +252,7 @@ public class Database {
 		notice.setNum(2);
 		notice.setAgentId("lovelysh24");
 		notice.setTitle("개인정보처리방침 개정 안내");
-//		notice.setDate(strDate);
+		notice.setDate(new Date());
 		notice.setContents("새로운 '개인정보처리방침'적용에 대한 사전 안내 말씀드립니다.");
 		tb_notice.add(notice);
 		
